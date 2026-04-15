@@ -38,10 +38,10 @@ class ProjectController extends BaseController
         $builder = $db->table('produk');
         
         $dataBaru = [
-            'id_kategori' => 3,
-            'nama_produk' => 'Lenovo Legion 5 (Test Manual)',
+            'id_kategori' => 4,
+            'nama_produk' => 'Asus ROG Strix G15',
             'harga'       => 21000000,
-            'stok'        => 8
+            'stok'        => 9
         ];
 
         // Eksekusi insert

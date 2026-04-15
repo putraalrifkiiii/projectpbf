@@ -9,5 +9,5 @@ $routes->get('/', 'Home::index');
 $routes->get('/layout', 'Layout::index' );
 $routes->get('/tugas', 'ProjectController::tampilkanSemuaData');
 $routes->get('/tugas/(:num)', 'ProjectController::tampilkanBerdasarkanJenis/$1');
-$routes->get('/coba', 'ProjectController::tambahData');  //Harusnya POST
+$routes->get('/tugas', 'ProjectController::tambahData');  //Harusnya POST
 $routes->get('/mahasiswa-prodi', 'ProjectController::tampilkanMahasiswaProdi');

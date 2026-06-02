@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
+<<<<<<< HEAD
 // Route utama
 $routes->get('/', function () {
     return redirect()->to('/dashboard');
@@ -21,6 +22,12 @@ $routes->post('/auth/processRegister', 'Auth::processRegister');
 $routes->get('/logout', 'Auth::logout');
 
 // Dashboard
+=======
+// 1. Rute Dashboard HARUS BERDIRI SENDIRI DI SINI
+$routes->get('/', function () {
+    return redirect()->to('/dashboard');
+});
+>>>>>>> 87adaffa833cbe8d166dd7322d9bd0bc1b09f764
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'login']);
 
 // Produk

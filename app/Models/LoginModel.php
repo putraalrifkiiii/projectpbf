@@ -7,22 +7,22 @@ use DateTime;
 
 class LoginModel extends Model
 {
-    protected $table          = 'auth_logins';
-    protected $primaryKey     = 'id';
-    protected $returnType     = 'object';
+    protected $table = 'auth_logins';
+    protected $primaryKey = 'id';
+    protected $returnType = 'object';
     protected $useSoftDeletes = false;
-    protected $allowedFields  = [
+    protected $allowedFields = [
         'ip_address', 'email', 'user_id', 'date', 'success',
     ];
-    protected $useTimestamps   = false;
+    protected $useTimestamps = false;
     protected $validationRules = [
         'ip_address' => 'required',
-        'email'      => 'required',
-        'user_id'    => 'permit_empty|integer',
-        'date'       => 'required|valid_date',
+        'email' => 'required',
+        'user_id' => 'permit_empty|integer',
+        'date' => 'required|valid_date',
     ];
     protected $validationMessages = [];
-    protected $skipValidation     = false;
+    protected $skipValidation = false;
 
     /**
      * Stores a remember-me token for the user.
@@ -34,10 +34,10 @@ class LoginModel extends Model
         $expires = new DateTime($expires);
 
         return $this->db->table('auth_tokens')->insert([
-            'user_id'         => $userID,
-            'selector'        => $selector,
+            'user_id' => $userID,
+            'selector' => $selector,
             'hashedValidator' => $validator,
-            'expires'         => $expires->format('Y-m-d H:i:s'),
+            'expires' => $expires->format('Y-m-d H:i:s'),
         ]);
     }
 
@@ -65,7 +65,7 @@ class LoginModel extends Model
             ->where('selector', $selector)
             ->update([
                 'hashedValidator' => hash('sha256', $validator),
-                'expires'         => (new DateTime())->modify('+' . config('Auth')->rememberLength . ' seconds')->format('Y-m-d H:i:s'),
+                'expires' => (new DateTime())->modify('+' . config('Auth')->rememberLength . ' seconds')->format('Y-m-d H:i:s'),
             ]);
     }
 

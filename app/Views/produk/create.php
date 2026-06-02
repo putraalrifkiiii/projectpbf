@@ -14,36 +14,48 @@
 </head>
 
 <body>
-    <div class="container bg-light mt-5 w-50 p-5 rounded-4 position-relative">
-        <div class="d-flex justify-content-end">
-            <a href="/produk" class="btn btn-secondary position-absolute top-0 end-0 ">
-                Kembali
-            </a>
-        </div>
-        <div class="text-center">
-            <h2 class="mb-3"><?= $title; ?></h2>
-            <form action="/produk/store" method="post">
-                <label>Nama Produk:</label><br>
-                <input type="text" name="nama_produk" required><br><br>
-
-                <label>Kategori:</label><br>
-                <select name="id_kategori" required>
-                    <option value="">Pilih Kategori</option>
-                    <?php foreach ($kategori as $k) : ?>
-                    <option value="<?= $k['id_kategori']; ?>"><?= $k['nama_kategori']; ?></option>
-                    <?php endforeach; ?>
-                </select><br><br>
-
-                <label>Harga:</label><br>
-                <input type="number" name="harga" required><br><br>
-
-                <label>Stok:</label><br>
-                <input type="number" name="stok" required><br><br>
-                <div class="gap-4 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="/produk" class="btn btn-danger">Batal</a>
+    <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambahLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTambahLabel">Tambah Produk</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </form>
+
+                <form action="/produk/store" method="post">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Produk:</label>
+                            <input type="text" name="nama_produk" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Kategori:</label>
+                            <select name="id_kategori" class="form-select" required>
+                                <option value="">Pilih Kategori</option>
+                                <?php foreach ($kategori as $k) : ?>
+                                <option value="<?= $k['id_kategori']; ?>"><?= $k['nama_kategori']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Harga:</label>
+                            <input type="number" name="harga" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Stok:</label>
+                            <input type="number" name="stok" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <script>

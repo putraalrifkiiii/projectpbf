@@ -12,6 +12,9 @@ use CodeIgniter\Router\RouteCollection;
 // $routes->get('/logout', 'Auth::logout');
 
 // 1. Rute Dashboard HARUS BERDIRI SENDIRI DI SINI
+$routes->get('/', function () {
+    return redirect()->to('/dashboard');
+});
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'login']);
 
 // 2. Rute Produk TETAP DI DALAM GRUP

@@ -21,7 +21,8 @@ class Produk extends BaseController
     {
         $data = [
             'title' => 'Daftar Produk Elektronik',
-            'produk' => $this->produkModel->getProdukWithKategori()
+            'produk' => $this->produkModel->getProdukWithKategori(),
+            'kategori' => $this->kategoriModel->findAll()
         ];
         return view('produk/index', $data);
     }

@@ -6,13 +6,15 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-// 1. Rute Dashboard HARUS BERDIRI SENDIRI DI SINI
+// Dashboard
 $routes->get('/', function () {
     return redirect()->to('/dashboard');
 });
+
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'login']);
 
-// Produk
+
+// ==================== PRODUK ====================
 $routes->group('produk', ['filter' => 'login'], function ($routes) {
 
     $routes->get('/', 'Produk::index');
@@ -26,6 +28,19 @@ $routes->group('produk', ['filter' => 'login'], function ($routes) {
     $routes->delete('delete/(:num)', 'Produk::delete/$1');
 });
 
+
+// ==================== TRANSAKSI ====================
+$routes->group('transaksi', ['filter' => 'login'], function ($routes) {
+
+    $routes->get('/', 'Transaksi::index');
+
+    $routes->post('store', 'Transaksi::store');
+
+    $routes->get('edit/(:num)', 'Transaksi::edit/$1');
+    $routes->post('update/(:num)', 'Transaksi::update/$1');
+
+    $routes->delete('delete/(:num)', 'Transaksi::delete/$1');
+});
 // ====================================================================
 // 2. ROUTE KHUSUS USER / PELANGGAN
 // ====================================================================

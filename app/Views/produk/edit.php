@@ -11,54 +11,378 @@
 <head>
     <meta charset="UTF-8">
     <title><?= $title; ?></title>
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #050816;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Glow Background */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: rgba(0,255,255,0.08);
+            top: -200px;
+            left: -120px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            background: rgba(255,0,255,0.08);
+            bottom: -180px;
+            right: -120px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+        }
+
+        /* Cyber Card */
+        .cyber-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,255,255,0.08),
+                    rgba(255,0,255,0.05)
+                );
+
+            border: 1px solid rgba(0,255,255,0.18);
+            border-radius: 28px;
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 0 20px rgba(0,255,255,0.08),
+                0 0 50px rgba(255,0,255,0.05);
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Neon Top Line */
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background: linear-gradient(
+                90deg,
+                #00ffff,
+                #ff00ff,
+                #00ffff
+            );
+        }
+
+        /* Title */
+        .cyber-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00ffff;
+
+            text-shadow:
+                0 0 10px #00ffff,
+                0 0 20px #00ffff;
+        }
+
+        .cyber-title span {
+            color: #ff00ff;
+
+            text-shadow:
+                0 0 10px #ff00ff,
+                0 0 20px #ff00ff;
+        }
+
+        /* Subtitle */
+        .cyber-subtitle {
+            color: #94a3b8;
+            margin-top: 10px;
+        }
+
+        /* Form */
+        .form-label {
+            color: #00ffff;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .form-control,
+        .form-select {
+            background: rgba(255,255,255,0.04) !important;
+            border: 1px solid rgba(0,255,255,0.2);
+            color: white !important;
+            border-radius: 15px;
+            padding: 14px 16px;
+
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #00ffff;
+
+            box-shadow:
+                0 0 12px rgba(0,255,255,0.3);
+
+            background: rgba(255,255,255,0.06) !important;
+        }
+
+        .form-select option {
+            background: #050816;
+            color: white;
+        }
+
+        ::placeholder {
+            color: #94a3b8 !important;
+        }
+
+        /* Button */
+        .btn-cyber {
+            border: 1px solid #00ffff;
+            color: #00ffff;
+            background: transparent;
+
+            border-radius: 14px;
+
+            padding: 12px 22px;
+
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-cyber:hover {
+            background: #00ffff;
+            color: black;
+
+            box-shadow:
+                0 0 18px #00ffff;
+        }
+
+        .btn-cancel {
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #cbd5e1;
+            background: rgba(255,255,255,0.05);
+
+            border-radius: 14px;
+
+            padding: 12px 22px;
+
+            transition: 0.3s;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        /* Back Button */
+        .btn-back {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+
+            border-radius: 12px;
+        }
+
+        /* Icon */
+        .glow-icon {
+            color: #ff00ff;
+
+            text-shadow:
+                0 0 10px #ff00ff,
+                0 0 20px #ff00ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cyber-card {
+                padding: 30px 20px !important;
+            }
+
+            .cyber-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+
 </head>
 
-<body class="bg-light">
+<body>
 
-    <div class="container mt-5 w-50 bg-white p-5 rounded-4 shadow-sm position-relative">
-        <div class="d-flex justify-content-end mb-3">
-            <a href="/produk" class="btn btn-secondary btn-sm position-absolute top-0 end-0 m-3">Kembali</a>
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-7">
+
+                <div class="cyber-card p-5">
+
+                    <!-- Tombol Kembali -->
+                    <a href="/produk"
+                        class="btn btn-cancel btn-back">
+
+                        <i class="bi bi-arrow-left me-2"></i>
+                        Kembali
+
+                    </a>
+
+                    <!-- Header -->
+                    <div class="text-center mb-5">
+
+                        <h1 class="cyber-title">
+
+                            <i class="bi bi-pencil-square glow-icon me-2"></i>
+
+                            EDIT
+                            <span>PRODUK</span>
+
+                        </h1>
+
+                        <p class="cyber-subtitle">
+                            Ubah informasi produk cyber inventory Anda.
+                        </p>
+
+                    </div>
+
+                    <!-- Form -->
+                    <form action="/produk/update/<?= $produk['id_produk']; ?>"
+                        method="post">
+
+                        <!-- Nama Produk -->
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Nama Produk
+                            </label>
+
+                            <input type="text"
+                                name="nama_produk"
+                                class="form-control"
+                                value="<?= $produk['nama_produk']; ?>"
+                                placeholder="Masukkan nama produk..."
+                                required>
+
+                        </div>
+
+                        <!-- Kategori -->
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Kategori Produk
+                            </label>
+
+                            <select name="id_kategori"
+                                class="form-select"
+                                required>
+
+                                <?php foreach ($kategori as $k) : ?>
+
+                                <option value="<?= $k['id_kategori']; ?>"
+                                    <?= ($k['id_kategori'] == $produk['id_kategori']) ? 'selected' : ''; ?>>
+
+                                    <?= $k['nama_kategori']; ?>
+
+                                </option>
+
+                                <?php endforeach; ?>
+
+                            </select>
+
+                        </div>
+
+                        <!-- Harga -->
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Harga Produk
+                            </label>
+
+                            <input type="number"
+                                name="harga"
+                                class="form-control"
+                                value="<?= $produk['harga']; ?>"
+                                placeholder="Masukkan harga..."
+                                required>
+
+                        </div>
+
+                        <!-- Stok -->
+                        <div class="mb-5">
+
+                            <label class="form-label">
+                                Jumlah Stok
+                            </label>
+
+                            <input type="number"
+                                name="stok"
+                                class="form-control"
+                                value="<?= $produk['stok']; ?>"
+                                placeholder="Masukkan stok..."
+                                required>
+
+                        </div>
+
+                        <!-- Button -->
+                        <div class="d-flex gap-3 justify-content-center flex-wrap">
+
+                            <button type="submit"
+                                class="btn btn-cyber">
+
+                                <i class="bi bi-save2 me-2"></i>
+                                Update Produk
+
+                            </button>
+
+                            <a href="/produk"
+                                class="btn btn-cancel">
+
+                                <i class="bi bi-x-circle me-2"></i>
+                                Batal
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="text-center mb-4">
-            <h2><?= $title; ?></h2>
-        </div>
-
-        <form action="/produk/update/<?= $produk['id_produk']; ?>" method="post">
-            <div class="mb-3 text-start">
-                <label class="form-label">Nama Produk:</label>
-                <input type="text" name="nama_produk" class="form-control" value="<?= $produk['nama_produk']; ?>"
-                    required>
-            </div>
-
-            <div class="mb-3 text-start">
-                <label class="form-label">Kategori:</label>
-                <select name="id_kategori" class="form-select" required>
-                    <?php foreach ($kategori as $k) : ?>
-                    <option value="<?= $k['id_kategori']; ?>"
-                        <?= ($k['id_kategori'] == $produk['id_kategori']) ? 'selected' : ''; ?>>
-                        <?= $k['nama_kategori']; ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="mb-3 text-start">
-                <label class="form-label">Harga:</label>
-                <input type="number" name="harga" class="form-control" value="<?= $produk['harga']; ?>" required>
-            </div>
-
-            <div class="mb-3 text-start">
-                <label class="form-label">Stok:</label>
-                <input type="number" name="stok" class="form-control" value="<?= $produk['stok']; ?>" required>
-            </div>
-
-            <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary px-4 me-2">Ubah Data</button>
-                <a href="/produk" class="btn btn-danger px-4">Batal</a>
-            </div>
-        </form>
     </div>
 
 </body>

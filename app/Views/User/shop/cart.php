@@ -1,4 +1,13 @@
-<?= $this->extend('layout') ?> <?= $this->section('content') ?>
+<?= $this->extend('layout') ?>
+
+<?php
+/**
+ * @var int $transaksi_id
+ * @var string $snap_token
+ */
+?>
+
+<?= $this->section('content') ?>
 <div class="container mt-5">
     <div class="row mb-4 align-items-center">
         <div class="col">
@@ -89,13 +98,40 @@ else:
                                 Rp <?= number_format($total, 0, ',', '.') ?>
                             </td>
                             <td class="text-center py-4 px-4">
-                                <form action="<?= base_url('checkout') ?>" method="POST">
+
+                                <?php if (isset($snap_token)): ?>
+                                <button id="pay-button" class="btn btn-success btn-lg w-100 shadow-sm">
+                                    Bayar Sekarang <i class="bi bi-wallet2 ms-1"></i>
+                                </button>
+
+                                <script src="https://app.sandbox.midtrans.com/snap/snap.js"
+                                    data-client-key="<?= config('Midtrans')->clientKey ?>"></script>
+                                <script>
+                                document.getElementById('pay-button').onclick = function() {
+                                    window.snap.pay('<?= $snap_token ?>', {
+                                        onSuccess: function(result) {
+                                            // Arahkan ke controller untuk update DB jadi "Selesai"
+                                            window.location.href =
+                                                "<?= base_url('cart/success/' . $transaksi_id) ?>";
+                                        },
+                                        onPending: function(result) {
+                                            alert("Menunggu pembayaran!");
+                                        },
+                                        onError: function(result) {
+                                            alert("Pembayaran gagal!");
+                                        }
+                                    });
+                                };
+                                </script>
+                                <?php else: ?>
+                                <form action="<?= base_url('cart/checkout') ?>" method="POST">
                                     <?= csrf_field() ?>
-                                    <button type="submit" class="btn btn-success btn-lg w-100 shadow-sm"
-                                        onclick="return confirm('Apakah Anda yakin ingin memproses pesanan ini?')">
-                                        Checkout <i class="bi bi-arrow-right-circle ms-1"></i>
+                                    <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm">
+                                        Proses Checkout <i class="bi bi-arrow-right-circle ms-1"></i>
                                     </button>
                                 </form>
+                                <?php endif; ?>
+
                             </td>
                         </tr>
                     </tfoot>

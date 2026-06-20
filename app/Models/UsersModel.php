@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 namespace App\Models;
 
@@ -10,4 +10,4 @@ class UsersModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = ['name', 'email', 'password'];
     protected $useTimestamps = true; // Otomatis mengisi created_at dan updated_at
-}
+} -->

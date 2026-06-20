@@ -6,17 +6,35 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-// Dashboard
-$routes->get('/', function () {
-    return redirect()->to('/dashboard');
+// ====================================================================
+// RUTE HALAMAN CUSTOMER / USER (FRONTEND)
+// ====================================================================
+
+// Halaman Utama User (Katalog Produk)
+$routes->get('/', 'user\Shop::index');
+$routes->get('/shop/detail/(:num)', 'user\Shop::detail/$1');
+
+// Fitur Keranjang & Checkout (Wajib Login dengan filter 'login')
+$routes->group('', ['filter' => 'login'], function ($routes) {
+    $routes->post('/cart/add', 'user\Cart::add');
+    $routes->get('/cart', 'user\Cart::index');
+    $routes->get('/cart/remove/(:segment)', 'user\Cart::remove/$1');
+    $routes->post('/checkout', 'user\Cart::checkout');
+
+    // Riwayat Transaksi
+    $routes->get('/riwayat', 'user\Shop::riwayat');
 });
 
+
+// ====================================================================
+// RUTE HALAMAN ADMIN (BACKEND)
+// ====================================================================
+
+// Dashboard Admin (Wajib Login dengan filter 'login')
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'login']);
 
-
-// ==================== PRODUK ====================
+// Manajemen Produk
 $routes->group('produk', ['filter' => 'login'], function ($routes) {
-
     $routes->get('/', 'Produk::index');
 
     $routes->get('create', 'Produk::create');
@@ -28,10 +46,8 @@ $routes->group('produk', ['filter' => 'login'], function ($routes) {
     $routes->delete('delete/(:num)', 'Produk::delete/$1');
 });
 
-
-// ==================== TRANSAKSI ====================
+// Manajemen Transaksi
 $routes->group('transaksi', ['filter' => 'login'], function ($routes) {
-
     $routes->get('/', 'Transaksi::index');
 
     $routes->post('store', 'Transaksi::store');
@@ -40,17 +56,4 @@ $routes->group('transaksi', ['filter' => 'login'], function ($routes) {
     $routes->post('update/(:num)', 'Transaksi::update/$1');
 
     $routes->delete('delete/(:num)', 'Transaksi::delete/$1');
-});
-// ====================================================================
-// 2. ROUTE KHUSUS USER / PELANGGAN
-// ====================================================================
-// Filter opsional, misal kalau mau akses katalog harus login: ['filter' => 'userAuth']
-$routes->group('user', ['namespace' => 'App\Controllers\User'], function ($routes) {
-
-    // Method GET untuk menampilkan etalase toko
-    $routes->get('shop', 'ShopController::index');
-    $routes->get('shop/detail/(:num)', 'ShopController::detail/$1');
-
-    // Nanti kalau ada fitur tambah ke keranjang, pastikan pakai POST
-    // $routes->post('cart/add', 'CartController::add');
 });

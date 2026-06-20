@@ -18,7 +18,8 @@ class Transaksi extends BaseController
     {
         $data = [
             'title' => 'Data Transaksi',
-            'transaksi' => $this->transaksi->findAll()
+            // Menambahkan orderBy agar transaksi terbaru (ID terbesar) muncul paling atas
+            'transaksi' => $this->transaksi->orderBy('id', 'DESC')->findAll()
         ];
 
         return view('transaksi/index', $data);
@@ -34,16 +35,24 @@ class Transaksi extends BaseController
             'status' => $this->request->getPost('status'),
         ]);
 
+        // UBAH 'pesan' menjadi 'success' agar terhubung dengan alert hijau di View
         return redirect()->to('/transaksi')
-            ->with('pesan', 'Data transaksi berhasil ditambahkan');
+            ->with('success', 'Data transaksi berhasil ditambahkan!');
     }
 
     // Form edit
     public function edit($id)
     {
+        $dataTransaksi = $this->transaksi->find($id);
+
+        // Proteksi jika ada user/admin mengetik ID ngawur di URL
+        if (empty($dataTransaksi)) {
+            return redirect()->to('/transaksi')->with('error', 'Data transaksi tidak ditemukan.');
+        }
+
         $data = [
             'title' => 'Edit Transaksi',
-            'transaksi' => $this->transaksi->find($id)
+            'transaksi' => $dataTransaksi
         ];
 
         return view('transaksi/edit', $data);
@@ -59,16 +68,25 @@ class Transaksi extends BaseController
             'status' => $this->request->getPost('status'),
         ]);
 
+        // UBAH 'pesan' menjadi 'success'
         return redirect()->to('/transaksi')
-            ->with('pesan', 'Data transaksi berhasil diupdate');
+            ->with('success', 'Data transaksi berhasil diupdate!');
     }
 
     // Hapus
     public function delete($id)
     {
-        $this->transaksi->delete($id);
+        // Pastikan datanya ada sebelum dihapus
+        $dataTransaksi = $this->transaksi->find($id);
 
+        if ($dataTransaksi) {
+            $this->transaksi->delete($id);
+            return redirect()->to('/transaksi')
+                ->with('success', 'Data transaksi berhasil dihapus!');
+        }
+
+        // Kirim alert merah (error) jika gagal
         return redirect()->to('/transaksi')
-            ->with('pesan', 'Data transaksi berhasil dihapus');
+            ->with('error', 'Gagal menghapus! Data tidak ditemukan.');
     }
 }

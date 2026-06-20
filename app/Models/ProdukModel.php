@@ -24,4 +24,19 @@ class ProdukModel extends Model
                     ->where(['id_produk' => $id])
                     ->first();
     }
+
+    /**
+     * Fungsi baru untuk mengurangi stok produk otomatis setelah checkout berhasil.
+     * Menggunakan Query Builder dengan parameter ketiga 'false' pada set()
+     * agar CodeIgniter tidak menambahkan escape string pada operasi matematika (stok - qty).
+     * * @param int $id_produk
+     * @param int $qty
+     */
+    public function kurangiStok($id_produk, $qty)
+    {
+        return $this->builder()
+                    ->set('stok', 'stok - ' . (int)$qty, false)
+                    ->where('id_produk', $id_produk)
+                    ->update();
+    }
 }

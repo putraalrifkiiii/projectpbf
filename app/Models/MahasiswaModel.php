@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 namespace App\Models;
 
@@ -9,4 +9,4 @@ class MahasiswaModel extends Model
     protected $table = 'mahasiswa';
     protected $primaryKey = 'nim';
     protected $allowedFields = ['nim', 'id_prodi', 'nama_mahasiswa', 'angkatan'];
-}
+} -->

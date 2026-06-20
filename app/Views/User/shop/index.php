@@ -14,15 +14,52 @@
             <h2 class="fw-bold">Katalog Produk Elektronik</h2>
             <p class="text-muted">Temukan berbagai pilihan Laptop, Smartphone, dan Aksesoris.</p>
         </div>
-        <div class="col-auto">
+
+        <div class="col-auto d-flex gap-2 align-items-center">
+
+            <?php if (logged_in()): ?>
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle fs-5"></i>
+                    <span class="d-none d-sm-inline"><?= esc(user()->username) ?></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+                    <li>
+                        <a class="dropdown-item py-2" href="<?= base_url('profil') ?>">
+                            <i class="bi bi-person me-2 text-primary"></i> Profil Saya
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item py-2" href="<?= base_url('riwayat') ?>">
+                            <i class="bi bi-clock-history me-2 text-success"></i> Riwayat Belanja
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item py-2 text-danger" href="<?= base_url('logout') ?>">
+                            <i class="bi bi-box-arrow-right me-2"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <?php else: ?>
+            <a href="<?= base_url('login') ?>" class="btn btn-outline-secondary">
+                <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
+            <?php endif; ?>
+
             <a href="<?= base_url('cart') ?>" class="btn btn-outline-primary position-relative">
-                <i class="bi bi-cart"></i> Keranjang
+                <i class="bi bi-cart"></i> <span class="d-none d-sm-inline">Keranjang</span>
                 <?php if (session()->get('cart')): ?>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     <?= count(session()->get('cart')) ?>
                 </span>
                 <?php endif; ?>
             </a>
+
         </div>
     </div>
 

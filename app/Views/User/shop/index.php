@@ -1,3 +1,4 @@
+```html
 <?= $this->extend('layout') ?>
 
 <?php
@@ -9,165 +10,188 @@
 <?= $this->section('content') ?>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap');
 
-body{
-    background: linear-gradient(
-        135deg,
-        #f8fafc 0%,
-        #dbeafe 35%,
-        #ede9fe 70%,
-        #fce7f3 100%
-    );
-    font-family:'Poppins',sans-serif;
-    min-height:100vh;
+body {
+    background-color: #0a0a0a;
+    background-image: radial-gradient(circle at top right, #1a0505 0%, #0a0a0a 40%);
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
 }
 
 /* HEADER */
-.catalog-title{
-    font-family:'Orbitron',sans-serif;
-    font-size:2.8rem;
-    font-weight:800;
-    background:linear-gradient(
-        90deg,
-        #2563eb,
-        #7c3aed,
-        #ec4899
-    );
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+.catalog-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-left: 6px solid #ed1c24;
+    /* Red Accent */
+    padding-left: 15px;
+    margin-bottom: 10px;
 }
 
-.catalog-subtitle{
-    color:#64748b;
-    font-size:1rem;
+.catalog-subtitle {
+    color: #888888;
+    font-size: 1rem;
+    font-weight: 300;
 }
 
 /* CARD */
-.card{
-    border:none;
-    border-radius:24px;
-    overflow:hidden;
-    background:rgba(255,255,255,.75);
-    backdrop-filter:blur(15px);
-    transition:.3s ease;
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.08);
+.card {
+    background-color: #111111;
+    border: 1px solid #222222;
+    border-radius: 0;
+    /* Sharp corners */
+    transition: all 0.3s ease;
 }
 
-.card:hover{
-    transform:
-        translateY(-8px)
-        scale(1.02);
-
-    box-shadow:
-        0 20px 35px rgba(37,99,235,.15);
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #ed1c24;
+    box-shadow: 0 10px 25px rgba(237, 28, 36, 0.15);
 }
 
-.card-img-top{
-    background:white;
-    height:220px !important;
-    object-fit:contain !important;
-    padding:15px;
+.card-img-top {
+    background: #ffffff;
+    height: 220px !important;
+    object-fit: contain !important;
+    padding: 20px;
+    border-bottom: 1px solid #222222;
 }
 
-.card-title{
-    color:#111827;
-    font-weight:700;
+.card-title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
 }
 
-.card-subtitle{
-    font-size:1.2rem;
-    font-weight:700;
-
-    background:linear-gradient(
-        90deg,
-        #ef4444,
-        #f97316
-    );
-
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+.card-subtitle {
+    font-size: 1.3rem;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: #ed1c24;
+    margin-top: 10px;
 }
 
 /* BADGE */
-.badge{
-    border:none !important;
-    border-radius:50px;
-    padding:8px 12px;
-
-    background:linear-gradient(
-        90deg,
-        #3b82f6,
-        #8b5cf6
-    ) !important;
-
-    color:white !important;
+.badge-category {
+    background-color: #1a1a1a;
+    border: 1px solid #333333;
+    color: #aaaaaa;
+    border-radius: 0;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* BUTTON */
-.btn-outline-secondary{
-    border:none;
-    background:#f1f5f9;
-    color:#334155;
+/* BUTTONS */
+.btn {
+    border-radius: 0;
+    /* Sharp edges */
+    text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
-.btn-outline-secondary:hover{
-    background:#3b82f6;
-    color:white;
+.btn-primary {
+    background-color: #ed1c24;
+    border: 1px solid #ed1c24;
+    color: #ffffff;
 }
 
-.btn-primary{
-    border:none;
-    background:linear-gradient(
-        90deg,
-        #2563eb,
-        #7c3aed
-    );
+.btn-primary:hover {
+    background-color: #c81018;
+    border-color: #c81018;
+    box-shadow: 0 0 15px rgba(237, 28, 36, 0.4);
+    color: #ffffff;
 }
 
-.btn-primary:hover{
-    transform:scale(1.03);
+.btn-outline-secondary {
+    border: 1px solid #444444;
+    color: #ffffff;
+    background: transparent;
 }
 
-.btn-outline-primary{
-    border:none;
-    background:linear-gradient(
-        90deg,
-        #10b981,
-        #06b6d4
-    );
-    color:white;
+.btn-outline-secondary:hover {
+    background: #2a2a2a;
+    border-color: #666666;
+    color: #ffffff;
 }
 
-.btn-outline-primary:hover{
-    color:white;
+.btn-outline-primary {
+    border: 1px solid #ed1c24;
+    color: #ed1c24;
+    background: transparent;
 }
 
-.dropdown-menu{
-    border:none;
-    border-radius:16px;
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.12);
+.btn-outline-primary:hover {
+    background: #ed1c24;
+    color: #ffffff;
 }
 
-.alert-success{
-    border:none;
-    background:#dcfce7;
+/* DROPDOWN NAV */
+.dropdown-menu {
+    background-color: #111111;
+    border: 1px solid #333333;
+    border-radius: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.alert-danger{
-    border:none;
-    background:#fee2e2;
+.dropdown-item {
+    color: #cccccc;
+    font-weight: 400;
 }
 
-.badge.rounded-pill{
-    background:#ef4444 !important;
+.dropdown-item:hover {
+    background-color: #ed1c24;
+    color: #ffffff;
 }
 
-.stock-text{
-    color:#64748b;
+.dropdown-divider {
+    border-top-color: #333333;
+}
+
+/* ALERTS */
+.alert {
+    border-radius: 0;
+    border: none;
+    border-left: 4px solid;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #102a16;
+    color: #4ade80;
+    border-left-color: #4ade80;
+}
+
+.alert-danger {
+    background-color: #2a1010;
+    color: #f87171;
+    border-left-color: #ed1c24;
+}
+
+/* UTILS */
+.badge.rounded-pill {
+    background: #ed1c24 !important;
+    border-radius: 0 !important;
+    /* Force sharp corner for pill */
+    padding: 4px 8px;
+}
+
+.stock-text {
+    color: #666666;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 </style>
 
@@ -181,7 +205,7 @@ body{
             </h2>
 
             <p class="catalog-subtitle">
-                Temukan Laptop, Smartphone, dan Aksesoris Terbaik Dengan Harga Terjangkau
+                Temukan Perangkat High-Performance & Aksesoris Terbaik
             </p>
         </div>
 
@@ -190,40 +214,40 @@ body{
             <?php if (logged_in()): ?>
 
             <div class="dropdown">
-                <button class="btn btn-light border dropdown-toggle d-flex align-items-center gap-2"
-                    type="button"
+                <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2" type="button"
                     data-bs-toggle="dropdown">
 
                     <i class="bi bi-person-circle"></i>
 
-                    <span class="d-none d-sm-inline">
+                    <span class="d-none d-sm-inline text-capitalize">
                         <?= esc(user()->username) ?>
                     </span>
 
                 </button>
 
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end mt-2">
 
                     <li>
-                        <a class="dropdown-item" href="<?= base_url('profil') ?>">
+                        <a class="dropdown-item py-2" href="<?= base_url('profil') ?>">
                             <i class="bi bi-person me-2"></i>
                             Profil Saya
                         </a>
                     </li>
 
                     <li>
-                        <a class="dropdown-item" href="<?= base_url('riwayat') ?>">
+                        <a class="dropdown-item py-2" href="<?= base_url('riwayat') ?>">
                             <i class="bi bi-clock-history me-2"></i>
                             Riwayat Belanja
                         </a>
                     </li>
 
-                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
 
                     <li>
-                        <a class="dropdown-item text-danger"
-                            href="<?= base_url('logout') ?>">
-                            <i class="bi bi-box-arrow-right me-2"></i>
+                        <a class="dropdown-item py-2 text-danger" href="<?= base_url('logout') ?>">
+                            <i class="bi bi-power me-2"></i>
                             Logout
                         </a>
                     </li>
@@ -233,22 +257,18 @@ body{
 
             <?php else: ?>
 
-            <a href="<?= base_url('login') ?>"
-                class="btn btn-outline-secondary">
-
-                <i class="bi bi-box-arrow-in-right"></i>
+            <a href="<?= base_url('login') ?>" class="btn btn-outline-secondary">
+                <i class="bi bi-box-arrow-in-right me-1"></i>
                 Login
-
             </a>
 
             <?php endif; ?>
 
-            <a href="<?= base_url('cart') ?>"
-                class="btn btn-outline-primary position-relative">
+            <a href="<?= base_url('cart') ?>" class="btn btn-outline-primary position-relative">
 
                 <i class="bi bi-cart-fill"></i>
 
-                <span class="d-none d-sm-inline">
+                <span class="d-none d-sm-inline ms-1">
                     Keranjang
                 </span>
 
@@ -265,20 +285,16 @@ body{
     </div>
 
     <?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success alert-dismissible fade show">
-        <?= session()->getFlashdata('success') ?>
-        <button type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"></button>
+    <div class="alert alert-success alert-dismissible fade show shadow-sm">
+        <i class="bi bi-check-circle-fill me-2"></i> <?= session()->getFlashdata('success') ?>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
     </div>
     <?php endif; ?>
 
     <?php if (session()->getFlashdata('error')): ?>
-    <div class="alert alert-danger alert-dismissible fade show">
-        <?= session()->getFlashdata('error') ?>
-        <button type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"></button>
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> <?= session()->getFlashdata('error') ?>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
     </div>
     <?php endif; ?>
 
@@ -290,17 +306,15 @@ body{
 
             <div class="card h-100">
 
-                <img
-                    src="<?= !empty($p['gambar'])
+                <img src="<?= !empty($p['gambar'])
                         ? base_url('uploads/produk/' . $p['gambar'])
-                        : base_url('assets/images/placeholder.jpg') ?>"
-                    class="card-img-top"
+                        : base_url('assets/images/image.png') ?>" class="card-img-top"
                     alt="<?= esc($p['nama_produk']) ?>">
 
                 <div class="card-body d-flex flex-column">
 
                     <div class="mb-3">
-                        <span class="badge">
+                        <span class="badge badge-category">
                             <?= esc($p['nama_kategori']) ?>
                         </span>
                     </div>
@@ -314,13 +328,13 @@ body{
                     </h6>
 
                     <p class="stock-text mb-4">
-                        Stok :
+                        <i class="bi bi-box-seam me-1"></i> Stok :
                         <?php if ($p['stok'] > 0): ?>
-                            <?= $p['stok'] ?>
+                        <span class="text-white"><?= $p['stok'] ?> Unit</span>
                         <?php else: ?>
-                            <span class="text-danger fw-bold">
-                                Habis
-                            </span>
+                        <span class="text-danger fw-bold">
+                            HABIS
+                        </span>
                         <?php endif; ?>
                     </p>
 
@@ -333,32 +347,17 @@ body{
 
                         <?php if ($p['stok'] > 0): ?>
 
-                        <form action="<?= base_url('cart/add') ?>"
-                            method="POST"
-                            class="w-50">
-
-                            <input type="hidden"
-                                name="id_produk"
-                                value="<?= $p['id_produk'] ?>">
-
-                            <input type="hidden"
-                                name="qty"
-                                value="1">
-
-                            <button type="submit"
-                                class="btn btn-primary w-100">
-
-                                <i class="bi bi-bag-fill me-1"></i>
+                        <form action="<?= base_url('cart/add') ?>" method="POST" class="w-50">
+                            <input type="hidden" name="id_produk" value="<?= $p['id_produk'] ?>">
+                            <input type="hidden" name="qty" value="1">
+                            <button type="submit" class="btn btn-primary w-100">
                                 Beli
-
                             </button>
-
                         </form>
 
                         <?php else: ?>
 
-                        <button class="btn btn-secondary w-50"
-                            disabled>
+                        <button class="btn btn-outline-secondary w-50" disabled>
                             Habis
                         </button>
 

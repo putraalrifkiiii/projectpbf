@@ -7,55 +7,47 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 // ====================================================================
-// RUTE HALAMAN CUSTOMER / USER (FRONTEND)
+// RUTE FRONTEND (USER)
 // ====================================================================
 
-// Halaman Utama User (Katalog Produk)
 $routes->get('/', 'User\Shop::index');
-$routes->get('/shop/detail/(:num)', 'User\Shop::detail/$1');
+$routes->get('shop/detail/(:num)', 'User\Shop::detail/$1');
 
-// Fitur Keranjang, Checkout & Profil (Wajib Login)
+// Fitur yang butuh login (User Biasa)
 $routes->group('', ['filter' => 'login'], function ($routes) {
-    // Keranjang & Pembayaran
-    $routes->post('/cart/add', 'User\Cart::add');
-    $routes->get('/cart', 'User\Cart::index');
-    $routes->get('/cart/remove/(:segment)', 'User\Cart::remove/$1');
-    $routes->post('/cart/checkout', 'User\Cart::checkout');
-
-    // PERBAIKAN: Rute success dimasukkan ke dalam grup wajib login agar aman
-    $routes->get('/cart/success/(:num)', 'User\Cart::success/$1');
-
-    // Riwayat Transaksi
-    $routes->get('/riwayat', 'User\Shop::riwayat');
-
-    // Profil User
-    $routes->get('/profil', 'User\Profile::index');
-    $routes->post('/profil/update', 'User\Profile::update');
+    $routes->post('cart/add', 'User\Cart::add');
+    $routes->get('cart', 'User\Cart::index');
+    $routes->get('cart/remove/(:segment)', 'User\Cart::remove/$1');
+    $routes->post('cart/checkout', 'User\Cart::checkout');
+    $routes->get('cart/success/(:num)', 'User\Cart::success/$1');
+    $routes->get('riwayat', 'User\Shop::riwayat');
+    $routes->get('profil', 'User\Profile::index');
+    $routes->post('profil/update', 'User\Profile::update');
 });
 
 
 // ====================================================================
-// RUTE HALAMAN ADMIN (BACKEND)
+// RUTE BACKEND (ADMIN) - namespace App\Controllers\Admin
 // ====================================================================
 
-// PERBAIKAN: Gunakan filter 'role:admin' agar user biasa tidak bisa masuk
-$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:admin']);
+$routes->group('admin', ['filter' => 'role:admin', 'namespace' => 'App\Controllers\Admin'], function ($routes) {
 
-// Manajemen Produk
-$routes->group('produk', ['filter' => 'role:admin'], function ($routes) {
-    $routes->get('/', 'Produk::index');
-    $routes->get('create', 'Produk::create');
-    $routes->post('store', 'Produk::store');
-    $routes->get('edit/(:num)', 'Produk::edit/$1');
-    $routes->post('update/(:num)', 'Produk::update/$1');
-    $routes->delete('delete/(:num)', 'Produk::delete/$1');
-});
+    // Dashboard
+    $routes->get('dashboard', 'Dashboard::index');
 
-// Manajemen Transaksi
-$routes->group('transaksi', ['filter' => 'role:admin'], function ($routes) {
-    $routes->get('/', 'Transaksi::index');
-    $routes->post('store', 'Transaksi::store');
-    $routes->get('edit/(:num)', 'Transaksi::edit/$1');
-    $routes->post('update/(:num)', 'Transaksi::update/$1');
-    $routes->delete('delete/(:num)', 'Transaksi::delete/$1');
+    // Produk (Manual agar aman)
+    $routes->get('produk', 'Produk::index');
+    $routes->get('produk/create', 'Produk::create');
+    $routes->post('produk/store', 'Produk::store');
+    $routes->get('produk/edit/(:num)', 'Produk::edit/$1');
+    $routes->post('produk/update/(:num)', 'Produk::update/$1');
+    $routes->delete('produk/delete/(:num)', 'Produk::delete/$1');
+
+    // Transaksi (Manual)
+    // Transaksi (Manual)
+    $routes->get('transaksi', 'Transaksi::index');
+    $routes->post('transaksi/store', 'Transaksi::store'); // <-- TAMBAHKAN BARIS INI
+    $routes->get('transaksi/edit/(:num)', 'Transaksi::edit/$1');
+    $routes->post('transaksi/update/(:num)', 'Transaksi::update/$1');
+    $routes->delete('transaksi/delete/(:num)', 'Transaksi::delete/$1');
 });

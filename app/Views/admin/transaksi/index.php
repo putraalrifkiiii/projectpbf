@@ -14,9 +14,7 @@
     <title><?= esc($title); ?></title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
         rel="stylesheet">
@@ -69,36 +67,24 @@
     }
 
     .hero-card {
-        background: linear-gradient(135deg,
-                rgba(0, 255, 255, 0.12),
-                rgba(255, 0, 255, 0.10));
-
+        background: linear-gradient(135deg, rgba(0, 255, 255, 0.12), rgba(255, 0, 255, 0.10));
         border: 1px solid rgba(0, 255, 255, 0.25);
         border-radius: 25px;
         padding: 40px;
         backdrop-filter: blur(20px);
-
-        box-shadow:
-            0 0 20px rgba(0, 255, 255, 0.15),
-            0 0 50px rgba(255, 0, 255, 0.08);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.15), 0 0 50px rgba(255, 0, 255, 0.08);
     }
 
     .hero-title {
         font-family: 'Orbitron', sans-serif;
         color: #00ffff;
         font-size: 2rem;
-
-        text-shadow:
-            0 0 10px #00ffff,
-            0 0 25px #00ffff;
+        text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff;
     }
 
     .hero-title span {
         color: #ff00ff;
-
-        text-shadow:
-            0 0 10px #ff00ff,
-            0 0 25px #ff00ff;
+        text-shadow: 0 0 10px #ff00ff, 0 0 25px #ff00ff;
     }
 
     .hero-text {
@@ -208,25 +194,17 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark py-3">
-
         <div class="container">
-
-            <a class="navbar-brand" href="/dashboard">
-                <i class="bi bi-cpu-fill me-2"></i>
-                CYBER ELECTRO
+            <a class="navbar-brand" href="<?= base_url('admin/dashboard') ?>">
+                <i class="bi bi-cpu-fill me-2"></i> TECH STORE
             </a>
 
             <div class="ms-auto">
-
-                <a href="/dashboard" class="btn btn-cyber">
-                    <i class="bi bi-arrow-left me-2"></i>
-                    Dashboard
+                <a href="<?= base_url('admin/dashboard') ?>" class="btn btn-cyber">
+                    <i class="bi bi-arrow-left me-2"></i> Dashboard
                 </a>
-
             </div>
-
         </div>
-
     </nav>
 
     <div class="container py-5">
@@ -240,75 +218,35 @@
         <?php endif; ?>
 
         <div class="hero-card mb-5">
-
             <div class="row align-items-center">
-
                 <div class="col-lg-8">
-
-                    <h1 class="hero-title">
-                        DATA <span>TRANSAKSI</span>
-                    </h1>
-
+                    <h1 class="hero-title">DATA <span>TRANSAKSI</span></h1>
                     <p class="hero-text mt-4">
-                        Monitor seluruh transaksi penjualan,
-                        status pembayaran, dan aktivitas toko
+                        Monitor seluruh transaksi penjualan, status pembayaran, dan aktivitas toko
                         cyberpunk Anda secara realtime.
                     </p>
-
                 </div>
-
                 <div class="col-lg-4 text-center d-none d-lg-block">
-
-                    <i class="bi bi-cart-check-fill" style="
-                            font-size: 8rem;
-                            color: #00ffff;
-                            text-shadow:
-                                0 0 20px #00ffff,
-                                0 0 40px #00ffff;
-                        ">
-                    </i>
-
+                    <i class="bi bi-cart-check-fill"
+                        style="font-size: 8rem; color: #00ffff; text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;"></i>
                 </div>
-
             </div>
-
         </div>
 
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-
             <div>
-
-                <h3 style="
-                    font-family: Orbitron;
-                    color: #00ffff;
-                    text-shadow: 0 0 10px #00ffff;
-                ">
-                    LIST TRANSAKSI
-                </h3>
-
-                <p style="color:#94a3b8;">
-                    Kelola transaksi pelanggan cyber store.
-                </p>
-
+                <h3 style="font-family: Orbitron; color: #00ffff; text-shadow: 0 0 10px #00ffff;">LIST TRANSAKSI</h3>
+                <p style="color:#94a3b8;">Kelola transaksi pelanggan cyber store.</p>
             </div>
-
             <button class="btn btn-cyber px-4 py-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
-
-                <i class="bi bi-plus-circle me-2"></i>
-                Tambah Transaksi
-
+                <i class="bi bi-plus-circle me-2"></i> Tambah Transaksi
             </button>
-
         </div>
 
         <div class="table-card p-3">
-
             <div class="table-responsive">
-
                 <table class="table align-middle">
-
                     <thead>
-
                         <tr>
                             <th>No</th>
                             <th>Pelanggan</th>
@@ -317,9 +255,7 @@
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
-
                     </thead>
-
                     <tbody>
                         <?php if (empty($transaksi)): ?>
                         <tr>
@@ -331,80 +267,49 @@
                         <?php else: ?>
                         <?php $i = 1; ?>
                         <?php foreach ($transaksi as $t) : ?>
-
                         <tr>
-
                             <td><?= $i++; ?></td>
-
-                            <td>
-                                <strong>
-                                    <?= esc($t['nama_pelanggan']); ?>
-                                </strong>
-                            </td>
-
-                            <td>
-                                <?= date('d M Y, H:i', strtotime($t['tanggal'])); ?> WIB
-                            </td>
-
-                            <td>
-                                Rp <?= number_format($t['total'], 0, ',', '.'); ?>
-                            </td>
-
+                            <td><strong><?= esc($t['nama_pelanggan']); ?></strong></td>
+                            <td><?= date('d M Y, H:i', strtotime($t['tanggal'])); ?> WIB</td>
+                            <td>Rp <?= number_format($t['total'], 0, ',', '.'); ?></td>
                             <td>
                                 <?php
-                                        $status = strtolower($t['status']);
+                                $status = strtolower($t['status']);
                             if ($status == 'selesai' || $status == 'sukses') :
                                 ?>
-                                <span class="status-success">
-                                    <?= esc($t['status']); ?>
-                                </span>
+                                <span class="status-success"><?= esc($t['status']); ?></span>
                                 <?php else : ?>
-                                <span class="status-pending">
-                                    <?= esc($t['status']); ?>
-                                </span>
+                                <span class="status-pending"><?= esc($t['status']); ?></span>
                                 <?php endif; ?>
                             </td>
-
                             <td>
-
                                 <div class="d-flex gap-2">
-
-                                    <a href="/transaksi/edit/<?= $t['id']; ?>" class="btn btn-edit btn-sm">
+                                    <a href="<?= base_url('admin/transaksi/edit/' . $t['id']) ?>"
+                                        class="btn btn-edit btn-sm">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
 
-                                    <form action="/transaksi/delete/<?= $t['id']; ?>" method="post">
-
+                                    <form action="<?= base_url('admin/transaksi/delete/' . $t['id']) ?>" method="post"
+                                        class="d-inline">
                                         <?= csrf_field() ?>
-
                                         <input type="hidden" name="_method" value="DELETE">
-
                                         <button type="submit" class="btn btn-delete btn-sm"
                                             onclick="return confirm('Yakin menghapus data transaksi <?= esc($t['nama_pelanggan']) ?>?')">
                                             <i class="bi bi-trash"></i>
                                         </button>
-
                                     </form>
-
                                 </div>
-
                             </td>
-
                         </tr>
-
                         <?php endforeach; ?>
                         <?php endif; ?>
                     </tbody>
-
                 </table>
-
             </div>
-
         </div>
-
     </div>
 
-    <?= $this->include('transaksi/create'); ?>
+    <?= $this->include('admin/transaksi/create'); ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 

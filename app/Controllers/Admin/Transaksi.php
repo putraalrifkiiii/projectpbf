@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
 use App\Models\TransaksiModel;
+use App\Controllers\BaseController;
 
 class Transaksi extends BaseController
 {
@@ -22,10 +23,10 @@ class Transaksi extends BaseController
             'transaksi' => $this->transaksi->orderBy('id', 'DESC')->findAll()
         ];
 
-        return view('transaksi/index', $data);
+        return view('Admin/transaksi/index', $data);
     }
 
-    // Simpan data
+    // Simpan data (Jika Admin bisa menambah transaksi manual)
     public function store()
     {
         $this->transaksi->save([
@@ -35,8 +36,7 @@ class Transaksi extends BaseController
             'status' => $this->request->getPost('status'),
         ]);
 
-        // UBAH 'pesan' menjadi 'success' agar terhubung dengan alert hijau di View
-        return redirect()->to('/transaksi')
+        return redirect()->to('admin/transaksi')
             ->with('success', 'Data transaksi berhasil ditambahkan!');
     }
 
@@ -47,7 +47,7 @@ class Transaksi extends BaseController
 
         // Proteksi jika ada user/admin mengetik ID ngawur di URL
         if (empty($dataTransaksi)) {
-            return redirect()->to('/transaksi')->with('error', 'Data transaksi tidak ditemukan.');
+            return redirect()->to('admin/transaksi')->with('error', 'Data transaksi tidak ditemukan.');
         }
 
         $data = [
@@ -55,22 +55,19 @@ class Transaksi extends BaseController
             'transaksi' => $dataTransaksi
         ];
 
-        return view('transaksi/edit', $data);
+        return view('Admin/transaksi/edit', $data);
     }
 
     // Update
     public function update($id)
     {
+        // PERBAIKAN: Hanya update status saja karena form edit tidak mengirim nama/total
         $this->transaksi->update($id, [
-            'nama_pelanggan' => $this->request->getPost('nama_pelanggan'),
-            'tanggal' => $this->request->getPost('tanggal'),
-            'total' => $this->request->getPost('total'),
             'status' => $this->request->getPost('status'),
         ]);
 
-        // UBAH 'pesan' menjadi 'success'
-        return redirect()->to('/transaksi')
-            ->with('success', 'Data transaksi berhasil diupdate!');
+        return redirect()->to('admin/transaksi')
+            ->with('success', 'Status transaksi berhasil diupdate!');
     }
 
     // Hapus
@@ -81,12 +78,12 @@ class Transaksi extends BaseController
 
         if ($dataTransaksi) {
             $this->transaksi->delete($id);
-            return redirect()->to('/transaksi')
+            return redirect()->to('admin/transaksi')
                 ->with('success', 'Data transaksi berhasil dihapus!');
         }
 
         // Kirim alert merah (error) jika gagal
-        return redirect()->to('/transaksi')
+        return redirect()->to('admin/transaksi')
             ->with('error', 'Gagal menghapus! Data tidak ditemukan.');
     }
 }

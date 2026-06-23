@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
 use App\Models\ProdukModel;
 use App\Models\KategoriModel;
+use App\Controllers\BaseController;
 
 class Produk extends BaseController
 {
@@ -24,7 +25,7 @@ class Produk extends BaseController
             'produk' => $this->produkModel->getProdukWithKategori(),
             'kategori' => $this->kategoriModel->findAll()
         ];
-        return view('produk/index', $data);
+        return view('Admin/produk/index', $data);
     }
 
     // [CREATE] Form tambah data
@@ -34,7 +35,7 @@ class Produk extends BaseController
             'title' => 'Tambah Produk',
             'kategori' => $this->kategoriModel->findAll() // Kirim data kategori untuk dropdown
         ];
-        return view('produk/create', $data);
+        return view('Admin/produk/create', $data);
     }
 
     // [CREATE] Proses simpan data
@@ -46,7 +47,7 @@ class Produk extends BaseController
             'stok' => $this->request->getVar('stok'),
             'id_kategori' => $this->request->getVar('id_kategori')
         ]);
-        return redirect()->to('/produk')->with('pesan', 'Data produk berhasil ditambahkan.');
+        return redirect()->to('admin/produk')->with('pesan', 'Data produk berhasil ditambahkan.');
     }
 
     // [UPDATE] Form edit data
@@ -57,7 +58,7 @@ class Produk extends BaseController
             'produk' => $this->produkModel->find($id_produk),
             'kategori' => $this->kategoriModel->findAll()
         ];
-        return view('produk/edit', $data);
+        return view('admin/produk/edit', $data);
     }
 
     // [UPDATE] Proses ubah data
@@ -70,13 +71,13 @@ class Produk extends BaseController
             'stok' => $this->request->getVar('stok'),
             'id_kategori' => $this->request->getVar('id_kategori')
         ]);
-        return redirect()->to('/produk')->with('pesan', 'Data produk berhasil diubah.');
+        return redirect()->to('admin/produk')->with('pesan', 'Data produk berhasil diubah.');
     }
 
     // [DELETE] Proses hapus data
     public function delete($id_produk)
     {
         $this->produkModel->delete($id_produk);
-        return redirect()->to('/produk')->with('pesan', 'Data produk berhasil dihapus.');
+        return redirect()->to('admin/produk')->with('pesan', 'Data produk berhasil dihapus.');
     }
 }

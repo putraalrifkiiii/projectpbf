@@ -4,7 +4,7 @@
         <div class="modal-content"
             style="background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(0,255,255,0.3); backdrop-filter: blur(15px); border-radius: 20px;">
 
-            <form action="/transaksi/store" method="post">
+            <form action="<?= base_url('admin/transaksi/store') ?>" method="post">
 
                 <?= csrf_field() ?>
 
@@ -42,7 +42,7 @@
 
                     <div class="mb-3">
                         <label class="form-label" style="color: #00ffff; font-size: 0.9rem;">Status</label>
-                        <select name="status" class="form-control"
+                        <select name="status" class="form-select"
                             style="background: rgba(0,0,0,0.5); border: 1px solid rgba(0,255,255,0.2); color: white;"
                             required>
                             <option value="Selesai" style="background: #0f172a; color: white;">Selesai</option>
@@ -54,7 +54,9 @@
 
                 <div class="modal-footer" style="border-top: 1px solid rgba(0,255,255,0.2);">
                     <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal"
-                        style="border-radius: 10px;">Batal</button>
+                        style="border-radius: 10px;">
+                        Batal
+                    </button>
                     <button type="submit" class="btn btn-cyber px-4 py-2">
                         <i class="bi bi-save me-1"></i> Simpan
                     </button>
@@ -63,7 +65,5 @@
             </form>
 
         </div>
-
     </div>
-
 </div>

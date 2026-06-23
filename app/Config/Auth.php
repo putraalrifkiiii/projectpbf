@@ -14,6 +14,10 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var string
      */
+
+    // Cari atau tambahkan ini di class Auth
+    public $logoutRedirect = '/login';
+
     public $defaultUserGroup;
 
     /**

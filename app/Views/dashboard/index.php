@@ -18,211 +18,214 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: #050816;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        overflow-x: hidden;
+    }
+
+    /* Background Glow */
+    body::before {
+        content: "";
+        position: fixed;
+        width: 500px;
+        height: 500px;
+        background: rgba(0, 255, 255, 0.08);
+        border-radius: 50%;
+        top: -200px;
+        left: -100px;
+        filter: blur(100px);
+        z-index: -1;
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        width: 400px;
+        height: 400px;
+        background: rgba(255, 0, 255, 0.08);
+        border-radius: 50%;
+        bottom: -150px;
+        right: -100px;
+        filter: blur(100px);
+        z-index: -1;
+    }
+
+    /* Navbar */
+    .navbar {
+        background: rgba(10, 10, 20, 0.8);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    }
+
+    .navbar-brand {
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        color: #00ffff !important;
+        text-shadow: 0 0 10px #00ffff;
+    }
+
+    .nav-link {
+        color: #cbd5e1 !important;
+        transition: 0.3s;
+    }
+
+    .nav-link:hover {
+        color: #00ffff !important;
+        text-shadow: 0 0 10px #00ffff;
+    }
+
+    /* HERO CYBERPUNK */
+    .hero-card {
+        position: relative;
+        background:
+            linear-gradient(135deg,
+                rgba(0, 255, 255, 0.12),
+                rgba(255, 0, 255, 0.10));
+        border: 1px solid rgba(0, 255, 255, 0.3);
+        border-radius: 25px;
+        overflow: hidden;
+        backdrop-filter: blur(20px);
+        box-shadow:
+            0 0 20px rgba(0, 255, 255, 0.15),
+            0 0 50px rgba(255, 0, 255, 0.1);
+    }
+
+    /* Neon Line */
+    .hero-card::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 3px;
+        top: 0;
+        left: 0;
+        background: linear-gradient(90deg,
+                #00ffff,
+                #ff00ff,
+                #00ffff);
+        animation: neonFlow 4s linear infinite;
+    }
+
+    @keyframes neonFlow {
+        0% {
+            background-position: 0%;
         }
 
-        body {
-            background: #050816;
-            font-family: 'Poppins', sans-serif;
-            color: white;
-            overflow-x: hidden;
+        100% {
+            background-position: 200%;
         }
+    }
 
-        /* Background Glow */
-        body::before {
-            content: "";
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            background: rgba(0, 255, 255, 0.08);
-            border-radius: 50%;
-            top: -200px;
-            left: -100px;
-            filter: blur(100px);
-            z-index: -1;
-        }
+    /* Welcome Text */
+    .welcome-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.3rem;
+        font-weight: 700;
+        color: #00ffff;
+        text-shadow:
+            0 0 5px #00ffff,
+            0 0 15px #00ffff,
+            0 0 30px #00ffff;
+    }
 
-        body::after {
-            content: "";
-            position: fixed;
-            width: 400px;
-            height: 400px;
-            background: rgba(255, 0, 255, 0.08);
-            border-radius: 50%;
-            bottom: -150px;
-            right: -100px;
-            filter: blur(100px);
-            z-index: -1;
-        }
+    .welcome-title span {
+        color: #ff00ff;
+        text-shadow:
+            0 0 5px #ff00ff,
+            0 0 15px #ff00ff,
+            0 0 30px #ff00ff;
+    }
 
-        /* Navbar */
-        .navbar {
-            background: rgba(10, 10, 20, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0,255,255,0.2);
-        }
+    .hero-desc {
+        color: #cbd5e1;
+        font-size: 1rem;
+        line-height: 1.8;
+    }
 
-        .navbar-brand {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            color: #00ffff !important;
-            text-shadow: 0 0 10px #00ffff;
-        }
+    /* Card */
+    .menu-card {
+        background: rgba(15, 23, 42, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        transition: all 0.4s ease;
+        color: white;
+    }
 
-        .nav-link {
-            color: #cbd5e1 !important;
-            transition: 0.3s;
-        }
+    .menu-card:hover {
+        transform: translateY(-10px);
+        border-color: #00ffff;
+        box-shadow:
+            0 0 15px rgba(0, 255, 255, 0.3),
+            0 0 40px rgba(0, 255, 255, 0.1);
+    }
 
-        .nav-link:hover {
-            color: #00ffff !important;
-            text-shadow: 0 0 10px #00ffff;
-        }
+    /* Icon */
+    .menu-icon {
+        width: 85px;
+        height: 85px;
+        margin: auto;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        /* HERO CYBERPUNK */
-        .hero-card {
-            position: relative;
-            background:
-                linear-gradient(135deg,
-                    rgba(0,255,255,0.12),
-                    rgba(255,0,255,0.10));
-            border: 1px solid rgba(0,255,255,0.3);
-            border-radius: 25px;
-            overflow: hidden;
-            backdrop-filter: blur(20px);
-            box-shadow:
-                0 0 20px rgba(0,255,255,0.15),
-                0 0 50px rgba(255,0,255,0.1);
-        }
+    .icon-blue {
+        color: #00ffff;
+        text-shadow: 0 0 15px #00ffff;
+    }
 
-        /* Neon Line */
-        .hero-card::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 3px;
-            top: 0;
-            left: 0;
-            background: linear-gradient(90deg,
-                    #00ffff,
-                    #ff00ff,
-                    #00ffff);
-            animation: neonFlow 4s linear infinite;
-        }
+    .icon-pink {
+        color: #ff00ff;
+        text-shadow: 0 0 15px #ff00ff;
+    }
 
-        @keyframes neonFlow {
-            0% {
-                background-position: 0%;
-            }
-            100% {
-                background-position: 200%;
-            }
-        }
+    .icon-yellow {
+        color: #ffd700;
+        text-shadow: 0 0 15px #ffd700;
+    }
 
-        /* Welcome Text */
-        .welcome-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.3rem;
-            font-weight: 700;
-            color: #00ffff;
-            text-shadow:
-                0 0 5px #00ffff,
-                0 0 15px #00ffff,
-                0 0 30px #00ffff;
-        }
+    /* Button */
+    .btn-cyber {
+        border-radius: 12px;
+        border: 1px solid #00ffff;
+        background: transparent;
+        color: #00ffff;
+        transition: 0.3s;
+        font-weight: 500;
+    }
 
-        .welcome-title span {
-            color: #ff00ff;
-            text-shadow:
-                0 0 5px #ff00ff,
-                0 0 15px #ff00ff,
-                0 0 30px #ff00ff;
-        }
+    .btn-cyber:hover {
+        background: #00ffff;
+        color: black;
+        box-shadow: 0 0 20px #00ffff;
+    }
 
-        .hero-desc {
-            color: #cbd5e1;
-            font-size: 1rem;
-            line-height: 1.8;
-        }
+    .section-title {
+        font-family: 'Orbitron', sans-serif;
+        color: #00ffff;
+        text-shadow: 0 0 10px #00ffff;
+    }
 
-        /* Card */
-        .menu-card {
-            background: rgba(15, 23, 42, 0.75);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-            color: white;
-        }
-
-        .menu-card:hover {
-            transform: translateY(-10px);
-            border-color: #00ffff;
-            box-shadow:
-                0 0 15px rgba(0,255,255,0.3),
-                0 0 40px rgba(0,255,255,0.1);
-        }
-
-        /* Icon */
-        .menu-icon {
-            width: 85px;
-            height: 85px;
-            margin: auto;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .icon-blue {
-            color: #00ffff;
-            text-shadow: 0 0 15px #00ffff;
-        }
-
-        .icon-pink {
-            color: #ff00ff;
-            text-shadow: 0 0 15px #ff00ff;
-        }
-
-        .icon-yellow {
-            color: #ffd700;
-            text-shadow: 0 0 15px #ffd700;
-        }
-
-        /* Button */
-        .btn-cyber {
-            border-radius: 12px;
-            border: 1px solid #00ffff;
-            background: transparent;
-            color: #00ffff;
-            transition: 0.3s;
-            font-weight: 500;
-        }
-
-        .btn-cyber:hover {
-            background: #00ffff;
-            color: black;
-            box-shadow: 0 0 20px #00ffff;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            color: #00ffff;
-            text-shadow: 0 0 10px #00ffff;
-        }
-
-        .text-muted-custom {
-            color: #94a3b8;
-        }
+    .text-muted-custom {
+        color: #94a3b8;
+    }
     </style>
 </head>
 
@@ -232,15 +235,12 @@
     <nav class="navbar navbar-expand-lg navbar-dark py-3">
         <div class="container">
 
-            <a class="navbar-brand" href="/dashboard">
+            <a class="navbar-brand" href="<?= base_url('admin/dashboard') ?>">
                 <i class="bi bi-cpu-fill me-2"></i>
-                CYBER ELECTRO
+                TECH STORE
             </a>
 
-            <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
 
                 <span class="navbar-toggler-icon"></span>
 
@@ -251,20 +251,19 @@
                 <ul class="navbar-nav ms-auto align-items-lg-center">
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="/dashboard">
+                        <a class="nav-link active" href="<?= base_url('admin/dashboard') ?>">
                             Dashboard
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/produk">
+                        <a class="nav-link" href="<?= base_url('admin/produk') ?>">
                             Produk
                         </a>
                     </li>
 
                     <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                        <a class="btn btn-danger rounded-pill px-4"
-                            href="/logout">
+                        <a class="btn btn-danger rounded-pill px-4" href="<?= base_url('admin/logout') ?>">
 
                             Logout
 
@@ -304,8 +303,7 @@
 
                 <div class="col-lg-4 text-center d-none d-lg-block">
 
-                    <i class="bi bi-pc-display-horizontal"
-                        style="
+                    <i class="bi bi-pc-display-horizontal" style="
                             font-size: 9rem;
                             color: #00ffff;
                             text-shadow:
@@ -348,8 +346,7 @@
                             Kelola stok, harga, dan data produk elektronik.
                         </p>
 
-                        <a href="/produk"
-                            class="btn btn-cyber w-100">
+                        <a href="<?= base_url('admin/produk') ?>" class="btn btn-cyber w-100">
 
                             Buka Produk
 
@@ -409,9 +406,8 @@
                             Pantau laporan transaksi dan penjualan toko.
                         </p>
 
-                         <a href="/transaksi"
-                         class="btn btn-cyber w-100">
-                         Buka Transaksi
+                        <a href="<?= base_url('admin/transaksi') ?>" class="btn btn-cyber w-100">
+                            Buka Transaksi
                         </a>
 
                     </div>

@@ -11,10 +11,13 @@
     },
     "require": {
         "php": "^8.2",
-        "codeigniter4/framework": "^4.7"
+        "codeigniter4/framework": "^4.7",
+        "midtrans/midtrans-php": "^2.6",
+        "myth/auth": "dev-master"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
+        "friendsofphp/php-cs-fixer": "^3.95",
         "mikey179/vfsstream": "^1.6",
         "phpunit/phpunit": "^10.5.16"
     },
@@ -35,7 +38,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "audit": {
+            "block-insecure": false
+        }
     },
     "scripts": {
         "test": "phpunit"

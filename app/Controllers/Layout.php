@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 namespace App\Controllers;
 
@@ -8,4 +8,4 @@ class Layout extends BaseController
     {
         return view('layout');
     }
-}
+} -->

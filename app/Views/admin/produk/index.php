@@ -13,476 +13,543 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title; ?></title>
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Google Font -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <style>
+    * {
+        box-sizing: border-box;
+    }
+
     body {
-        background: #050816;
         font-family: 'Poppins', sans-serif;
-        color: white;
+        background-color: #f4f6f9;
+        color: #343a40;
         overflow-x: hidden;
     }
 
-    /* Glow Background */
-    body::before {
-        content: '';
+    .app-wrapper {
+        min-height: 100vh;
+        display: flex;
+    }
+
+    /* Sidebar */
+    .main-sidebar {
+        width: 250px;
+        min-height: 100vh;
+        background: #343a40;
+        color: #c2c7d0;
         position: fixed;
-        width: 500px;
-        height: 500px;
-        background: rgba(0, 255, 255, 0.08);
-        top: -200px;
-        left: -100px;
-        border-radius: 50%;
-        filter: blur(100px);
-        z-index: -1;
-    }
-
-    body::after {
-        content: '';
-        position: fixed;
-        width: 400px;
-        height: 400px;
-        background: rgba(255, 0, 255, 0.08);
-        bottom: -150px;
-        right: -100px;
-        border-radius: 50%;
-        filter: blur(100px);
-        z-index: -1;
-    }
-
-    /* Navbar */
-    .navbar {
-        background: rgba(10, 10, 20, 0.8);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(0, 255, 255, 0.2);
-    }
-
-    .navbar-brand {
-        font-family: 'Orbitron', sans-serif;
-        font-weight: 700;
-        color: #00ffff !important;
-        text-shadow: 0 0 10px #00ffff;
-    }
-
-    .nav-link {
-        color: #cbd5e1 !important;
-        transition: 0.3s;
-    }
-
-    .nav-link:hover {
-        color: #00ffff !important;
-        text-shadow: 0 0 10px #00ffff;
-    }
-
-    /* Hero */
-    .hero-card {
-        position: relative;
-        background:
-            linear-gradient(135deg,
-                rgba(0, 255, 255, 0.12),
-                rgba(255, 0, 255, 0.10));
-        border: 1px solid rgba(0, 255, 255, 0.3);
-        border-radius: 25px;
-        overflow: hidden;
-        backdrop-filter: blur(20px);
-        box-shadow:
-            0 0 20px rgba(0, 255, 255, 0.15),
-            0 0 50px rgba(255, 0, 255, 0.1);
-    }
-
-    .hero-card::before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 3px;
         top: 0;
         left: 0;
-        background: linear-gradient(90deg,
-                #00ffff,
-                #ff00ff,
-                #00ffff);
+        z-index: 1030;
+        transition: all 0.3s ease;
     }
 
-    .hero-title {
-        font-family: 'Orbitron', sans-serif;
-        color: #00ffff;
-        text-shadow:
-            0 0 10px #00ffff,
-            0 0 25px #00ffff;
-        font-size: 2rem;
+    .brand-link {
+        height: 57px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        color: #ffffff;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-weight: 600;
+        font-size: 1.05rem;
     }
 
-    .hero-title span {
-        color: #ff00ff;
-        text-shadow:
-            0 0 10px #ff00ff,
-            0 0 25px #ff00ff;
+    .brand-link i {
+        color: #0d6efd;
+        margin-right: 10px;
     }
 
-    .hero-text {
-        color: #cbd5e1;
+    .sidebar-user {
+        padding: 18px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
 
-    /* Table Card */
-    .table-card {
-        background: #050505;
-        border: 1px solid rgba(0, 255, 255, 0.18);
-        border-radius: 25px;
-        backdrop-filter: blur(15px);
-        overflow: hidden;
-        box-shadow:
-            0 0 25px rgba(0, 255, 255, 0.08);
+    .sidebar-user .user-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #0d6efd;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    /* Table */
-    .table {
-        color: white !important;
+    .sidebar-user .user-name {
+        color: #ffffff;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin-bottom: 2px;
+    }
+
+    .sidebar-user .user-role {
+        font-size: 0.78rem;
+        color: #adb5bd;
+    }
+
+    .sidebar-menu {
+        list-style: none;
+        padding: 12px;
+        margin: 0;
+    }
+
+    .sidebar-menu .nav-item {
+        margin-bottom: 5px;
+    }
+
+    .sidebar-menu .nav-link {
+        color: #c2c7d0;
+        border-radius: 6px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        transition: 0.2s;
+        font-size: 0.92rem;
+    }
+
+    .sidebar-menu .nav-link i {
+        width: 24px;
+        margin-right: 8px;
+        text-align: center;
+    }
+
+    .sidebar-menu .nav-link:hover,
+    .sidebar-menu .nav-link.active {
+        background: #0d6efd;
+        color: #ffffff;
+    }
+
+    /* Main */
+    .main-content {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-header {
+        height: 57px;
+        background: #ffffff;
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        position: sticky;
+        top: 0;
+        z-index: 1020;
+    }
+
+    .navbar-title {
+        font-weight: 600;
+        color: #343a40;
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .content-wrapper {
+        flex: 1;
+        padding: 24px;
+    }
+
+    .content-header {
+        margin-bottom: 22px;
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #343a40;
+    }
+
+    .breadcrumb {
         margin-bottom: 0;
-        background: #050505 !important;
+        font-size: 0.9rem;
     }
 
-    /* Table Responsive */
-    .table-responsive {
-        background: #050505 !important;
-        border-radius: 20px;
+    .breadcrumb a {
+        text-decoration: none;
     }
 
-    /* Table Header */
-    .table thead {
-        background: rgba(0, 255, 255, 0.08) !important;
+    .card {
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+        background: #ffffff;
+        border-bottom: 1px solid #e9ecef;
+        padding: 16px 20px;
+    }
+
+    .card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0;
+        color: #343a40;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .table {
+        margin-bottom: 0;
+        color: #343a40;
     }
 
     .table thead th {
-        border: none;
-        color: #00ffff;
-        font-family: 'Orbitron', sans-serif;
-        padding: 18px;
-        background: rgba(0, 255, 255, 0.08) !important;
+        background-color: #f8f9fa;
+        color: #495057;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #dee2e6;
+        white-space: nowrap;
     }
 
-    /* Table Body */
-    .table tbody {
-        background: #050505 !important;
-    }
-
-    .table tbody tr {
-        background: #050505 !important;
-        border-color: rgba(255, 255, 255, 0.05);
-        transition: 0.3s;
+    .table tbody td {
+        vertical-align: middle;
+        font-size: 0.9rem;
     }
 
     .table tbody tr:hover {
-        background: rgba(0, 255, 255, 0.06) !important;
+        background-color: #f8f9fa;
     }
 
-    .table td {
-        padding: 18px;
-        vertical-align: middle;
-        color: #e2e8f0 !important;
-        background: #050505 !important;
+    .btn {
+        border-radius: 6px;
+        font-size: 0.88rem;
     }
 
-    .table> :not(caption)>*>* {
-        background-color: transparent !important;
+    .btn-action {
+        width: 34px;
+        height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
     }
 
-    /* Buttons */
-    .btn-cyber {
-        background: transparent;
-        border: 1px solid #00ffff;
-        color: #00ffff;
-        border-radius: 12px;
-        transition: 0.3s;
+    .badge {
         font-weight: 500;
+        border-radius: 6px;
     }
 
-    .btn-cyber:hover {
-        background: #00ffff;
-        color: black;
-        box-shadow: 0 0 15px #00ffff;
+    .main-footer {
+        background: #ffffff;
+        border-top: 1px solid #dee2e6;
+        padding: 14px 24px;
+        font-size: 0.9rem;
+        color: #6c757d;
     }
 
-    .btn-edit {
-        background: rgba(255, 193, 7, 0.12);
-        border: 1px solid #ffc107;
-        color: #ffc107;
-        border-radius: 10px;
+    .sidebar-toggle {
+        display: none;
+        border: none;
+        background: transparent;
+        font-size: 1.2rem;
+        color: #343a40;
     }
 
-    .btn-edit:hover {
-        background: #ffc107;
-        color: black;
-        box-shadow: 0 0 15px #ffc107;
-    }
+    @media (max-width: 768px) {
+        .main-sidebar {
+            left: -250px;
+        }
 
-    .btn-delete {
-        background: rgba(255, 0, 90, 0.1);
-        border: 1px solid #ff0055;
-        color: #ff0055;
-        border-radius: 10px;
-    }
+        .main-sidebar.show {
+            left: 0;
+        }
 
-    .btn-delete:hover {
-        background: #ff0055;
-        color: white;
-        box-shadow: 0 0 15px #ff0055;
-    }
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+        }
 
-    /* Alert */
-    .alert-cyber {
-        background: rgba(0, 255, 255, 0.08);
-        border: 1px solid rgba(0, 255, 255, 0.3);
-        color: #00ffff;
-        border-radius: 15px;
-    }
+        .sidebar-toggle {
+            display: inline-block;
+        }
 
-    /* Section */
-    .section-title {
-        font-family: 'Orbitron', sans-serif;
-        color: #00ffff;
-        text-shadow: 0 0 10px #00ffff;
-    }
+        .content-wrapper {
+            padding: 18px;
+        }
 
-    .text-muted-custom {
-        color: #94a3b8;
+        .main-header {
+            padding: 0 16px;
+        }
+
+        .page-title {
+            font-size: 1.35rem;
+        }
+
+        .table-responsive {
+            font-size: 0.85rem;
+        }
     }
     </style>
 </head>
 
-<body class="bg-black">
+<body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark py-3 ">
+    <div class="app-wrapper">
 
-        <div class="container">
-
-            <a class="navbar-brand" href="<?= base_url('admin/dashboard') ?>">
-                <i class="bi bi-cpu-fill me-2"></i>
-                TECH STORE
+        <!-- Sidebar -->
+        <aside class="main-sidebar" id="sidebar">
+            <a href="<?= base_url('admin/dashboard') ?>" class="brand-link">
+                <i class="fa-solid fa-store"></i>
+                <span>TECH STORE</span>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-
-                <span class="navbar-toggler-icon"></span>
-
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-
-                <ul class="navbar-nav ms-auto align-items-lg-center">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">
-                            Dashboard
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" href="<?= base_url('admin/produk') ?>">
-                            Produk
-                        </a>
-                    </li>
-
-                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-
-                        <a href="<?= base_url('admin/logout') ?>" class="btn btn-danger rounded-pill px-4">
-
-                            Logout
-
-                        </a>
-
-                    </li>
-
-                </ul>
-
+            <div class="sidebar-user">
+                <div class="user-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div>
+                    <div class="user-name"><?= user()->username; ?></div>
+                    <div class="user-role">Administrator</div>
+                </div>
             </div>
 
-        </div>
+            <ul class="sidebar-menu">
+                <li class="nav-item">
+                    <a href="<?= base_url('admin/dashboard') ?>" class="nav-link">
+                        <i class="fa-solid fa-gauge-high"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
 
-    </nav>
+                <li class="nav-item">
+                    <a href="<?= base_url('admin/produk') ?>" class="nav-link">
+                        <i class="fa-solid fa-box"></i>
+                        <span>Produk</span>
+                    </a>
+                </li>
 
-    <!-- Content -->
-    <div class="container py-5">
+                <li class="nav-item">
+                    <a href="<?= base_url('admin/pelanggan') ?>" class="nav-link">
+                        <i class="fa-solid fa-users"></i>
+                        <span>Pelanggan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('admin/transaksi') ?>" class="nav-link">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>Transaksi</span>
+                    </a>
+                </li>
 
-        <!-- Hero -->
-        <div class="hero-card p-5 mb-5">
+                <li class="nav-item">
+                    <a href="<?= base_url('admin/logout') ?>" class="nav-link">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
 
-            <div class="row align-items-center">
+        <!-- Main Content -->
+        <div class="main-content">
 
-                <div class="col-lg-8">
+            <!-- Navbar -->
+            <nav class="main-header">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="sidebar-toggle" type="button" onclick="toggleSidebar()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
 
-                    <h1 class="hero-title">
-                        PRODUCT
-                        <span>DATABASE</span>
-                    </h1>
-
-                    <p class="hero-text mt-4">
-                        Kelola seluruh inventaris elektronik,
-                        monitor stok barang, dan kontrol data
-                        produk TECH STORE Anda secara realtime.
-                    </p>
-
+                    <h6 class="navbar-title">
+                        Manajemen Produk
+                    </h6>
                 </div>
 
-                <div class="col-lg-4 text-center d-none d-lg-block">
+                <div>
+                    <a href="<?= base_url('admin/logout') ?>" class="btn btn-danger btn-sm">
+                        <i class="fa-solid fa-right-from-bracket me-1"></i>
+                        Logout
+                    </a>
+                </div>
+            </nav>
 
-                    <i class="bi bi-hdd-network" style="
-                            font-size: 8rem;
-                            color: #00ffff;
-                            text-shadow:
-                                0 0 20px #00ffff,
-                                0 0 40px #00ffff;
-                        ">
-                    </i>
+            <!-- Content Wrapper -->
+            <main class="content-wrapper">
 
+                <!-- Content Header -->
+                <section class="content-header">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
+                        <div>
+                            <h1 class="page-title">Data Produk</h1>
+                            <p class="text-muted mb-0">
+                                Kelola data produk, kategori, harga, dan stok barang.
+                            </p>
+                        </div>
+
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="<?= base_url('admin/dashboard') ?>">
+                                        <i class="fa-solid fa-house me-1"></i>
+                                        Home
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Produk
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </section>
+
+                <!-- Alert -->
+                <?php if (session()->getFlashdata('pesan')) : ?>
+
+                <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                    <i class="fa-solid fa-circle-check me-2"></i>
+                    <?= session()->getFlashdata('pesan'); ?>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
 
-            </div>
+                <?php endif; ?>
 
-        </div>
+                <!-- Table Card -->
+                <section class="card">
+                    <div class="card-header">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                            <div>
+                                <h3 class="card-title">
+                                    <i class="fa-solid fa-boxes-stacked me-2 text-primary"></i>
+                                    Daftar Produk
+                                </h3>
+                                <small class="text-muted">
+                                    Halo, <strong><?= user()->username; ?></strong>
+                                </small>
+                            </div>
 
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#modalTambah">
+                                <i class="fa-solid fa-plus me-1"></i>
+                                Tambah Produk
+                            </button>
+                        </div>
+                    </div>
 
-            <div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 70px;">No</th>
+                                        <th>Nama Produk</th>
+                                        <th>Kategori</th>
+                                        <th>Harga</th>
+                                        <th>Stok</th>
+                                        <th style="width: 120px;">Aksi</th>
+                                    </tr>
+                                </thead>
 
-                <h3 class="section-title mb-1">
-                    DAFTAR PRODUK
-                </h3>
+                                <tbody>
 
-                <p class="text-muted-custom mb-0">
-                    Halo, <strong><?= user()->username; ?></strong>
-                </p>
-
-            </div>
-
-            <button type="button" class="btn btn-cyber px-4 py-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
-
-                <i class="bi bi-plus-circle me-2"></i>
-                Tambah Produk
-
-            </button>
-
-        </div>
-
-        <!-- Alert -->
-        <?php if (session()->getFlashdata('pesan')) : ?>
-
-        <div class="alert alert-cyber alert-dismissible fade show mb-4" role="alert">
-
-            <?= session()->getFlashdata('pesan'); ?>
-
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert">
-            </button>
-
-        </div>
-
-        <?php endif; ?>
-
-        <!-- Table -->
-        <div class="table-card p-3">
-
-            <div class="table-responsive">
-
-                <table class="table align-middle">
-
-                    <thead>
-
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Produk</th>
-                            <th>Kategori</th>
-                            <th>Harga</th>
-                            <th>Stok</th>
-                            <th>Aksi</th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        <?php $i = 1;
+                                    <?php $i = 1;
 foreach ($produk as $p) : ?>
 
-                        <tr>
+                                    <tr>
+                                        <td><?= $i++; ?></td>
 
-                            <td><?= $i++; ?></td>
+                                        <td>
+                                            <strong>
+                                                <?= $p['nama_produk']; ?>
+                                            </strong>
+                                        </td>
 
-                            <td>
-                                <strong>
-                                    <?= $p['nama_produk']; ?>
-                                </strong>
-                            </td>
+                                        <td>
+                                            <?= $p['nama_kategori']; ?>
+                                        </td>
 
-                            <td>
-                                <?= $p['nama_kategori']; ?>
-                            </td>
+                                        <td>
+                                            Rp <?= number_format($p['harga'], 0, ',', '.'); ?>
+                                        </td>
 
-                            <td>
-                                Rp <?= number_format($p['harga'], 0, ',', '.'); ?>
-                            </td>
+                                        <td>
+                                            <span class="badge bg-info text-dark px-3 py-2">
+                                                <?= $p['stok']; ?>
+                                            </span>
+                                        </td>
 
-                            <td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <a href="<?= base_url('admin/produk/edit/' . $p['id_produk']) ?>"
+                                                    class="btn btn-warning btn-sm btn-action" title="Edit">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
 
-                                <span class="badge bg-info text-dark px-3 py-2">
-                                    <?= $p['stok']; ?>
-                                </span>
+                                                <form action="<?= base_url('admin/produk/delete/' . $p['id_produk']) ?>"
+                                                    method="post" class="d-inline">
+                                                    <?= csrf_field() ?>
+                                                    <input type="hidden" name="_method" value="DELETE">
 
-                            </td>
+                                                    <button type="submit" class="btn btn-danger btn-sm btn-action"
+                                                        title="Hapus"
+                                                        onclick="return confirm('Yakin ingin menghapus data ini?');">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                            <td>
+                                    <?php endforeach; ?>
 
-                                <div class="d-flex gap-2">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
 
-                                    <a href="<?= base_url('admin/produk/edit/' . $p['id_produk']) ?>"
-                                        class="btn btn-edit btn-sm">
+            </main>
 
-                                        <i class="bi bi-pencil-square"></i>
-
-                                    </a>
-
-                                    <form action="<?= base_url('admin/produk/delete/' . $p['id_produk']) ?>"
-                                        method="post" class="d-inline">
-                                        <?= csrf_field() ?>
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-delete btn-sm"
-                                            onclick="return confirm('Yakin ingin menghapus data ini?');">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-
-                                </div>
-
-                            </td>
-
-                        </tr>
-
-                        <?php endforeach; ?>
-
-                    </tbody>
-
-                </table>
-
-            </div>
+            <!-- Footer -->
+            <footer class="main-footer">
+                <div class="d-flex flex-column flex-md-row justify-content-between gap-1">
+                    <span>
+                        &copy; <?= date('Y'); ?> Tech Store Admin Panel.
+                    </span>
+                    <span>
+                        <strong>AdminLTE Style</strong> with Bootstrap 5
+                    </span>
+                </div>
+            </footer>
 
         </div>
-
     </div>
 
     <!-- Modal -->
     <?= $this->include('admin/produk/create'); ?>
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('show');
+    }
+    </script>
 
 </body>
 

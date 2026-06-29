@@ -1,33 +1,67 @@
-<?php $midtransConfig = new \Config\Midtrans(); ?>
-
+<?php
+$midtransConfig = new \Config\Midtrans();
+?>
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pembayaran</title>
 
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?= $midtransConfig->clientKey ?>">
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="<?= esc($midtransConfig->clientKey) ?>">
     </script>
 </head>
 
 <body>
 
-    <h3>Memproses Pembayaran...</h3>
-
     <script>
-    snap.pay('<?= $snap_token ?>', {
-        onSuccess: function(result) {
-            alert("Pembayaran berhasil!");
-            window.location.href = "/";
-        },
-        onPending: function(result) {
-            alert("Menunggu pembayaran!");
-        },
-        onError: function(result) {
-            alert("Pembayaran gagal!");
-            console.log(result);
-        }
-    });
+    window.onload = function() {
+
+        snap.pay('<?= esc($snap_token) ?>', {
+
+            onSuccess: function(result) {
+
+                console.log(result);
+
+                alert("Pembayaran berhasil!");
+
+                window.location.href = "<?= base_url('cart/success/' . $transaksi_id) ?>";
+
+            },
+
+            onPending: function(result) {
+
+                console.log(result);
+
+                alert("Pembayaran sedang menunggu pembayaran.");
+
+                window.location.href = "<?= base_url('riwayat') ?>";
+
+            },
+
+            onError: function(result) {
+
+                console.log(result);
+
+                alert("Pembayaran gagal!");
+
+                window.location.href = "<?= base_url('cart') ?>";
+
+            },
+
+            onClose: function() {
+
+                alert("Anda menutup popup pembayaran sebelum menyelesaikan transaksi.");
+
+                window.location.href = "<?= base_url('cart') ?>";
+
+            }
+
+        });
+
+    };
     </script>
 
 </body>

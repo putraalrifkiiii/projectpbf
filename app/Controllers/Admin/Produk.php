@@ -50,35 +50,13 @@ class Produk extends BaseController
     // ===============================
     public function store()
     {
-        $rules = [
-            'nama_produk' => 'required',
-            'id_kategori' => 'required|integer',
-            'harga'       => 'required|numeric',
-            'stok'        => 'required|integer'
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput();
-        }
-
-        // Cek apakah kategori benar-benar ada
-        $kategori = $this->kategoriModel
-            ->where('id_kategori', $this->request->getPost('id_kategori'))
-            ->first();
-
-        if (!$kategori) {
-            return redirect()->back()->withInput()->with('error', 'Kategori tidak ditemukan.');
-        }
-
-        $this->produkModel->insert([
-            'nama_produk' => $this->request->getPost('nama_produk'),
-            'id_kategori' => $this->request->getPost('id_kategori'),
-            'harga'       => $this->request->getPost('harga'),
-            'stok'        => $this->request->getPost('stok')
+        $this->produkModel->save([
+            'nama_produk' => $this->request->getVar('nama_produk'),
+            'harga' => $this->request->getVar('harga'),
+            'stok' => $this->request->getVar('stok'),
+            'id_kategori' => $this->request->getVar('id_kategori')
         ]);
-
-        return redirect()->to('/admin/produk')
-                         ->with('pesan', 'Data produk berhasil ditambahkan.');
+        return redirect()->to('admin/produk')->with('pesan', 'Data produk berhasil ditambahkan.');
     }
 
     // ===============================
@@ -96,31 +74,17 @@ class Produk extends BaseController
         return view('Admin/produk/edit', $data);
     }
 
-    // ===============================
-    // Update Produk
-    // ===============================
+    // [UPDATE] Proses ubah data
     public function update($id_produk)
     {
-        $rules = [
-            'nama_produk' => 'required',
-            'id_kategori' => 'required|integer',
-            'harga'       => 'required|numeric',
-            'stok'        => 'required|integer'
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput();
-        }
-
-        $this->produkModel->update($id_produk, [
-            'nama_produk' => $this->request->getPost('nama_produk'),
-            'id_kategori' => $this->request->getPost('id_kategori'),
-            'harga'       => $this->request->getPost('harga'),
-            'stok'        => $this->request->getPost('stok')
+        $this->produkModel->save([
+            'id_produk' => $id_produk,
+            'nama_produk' => $this->request->getVar('nama_produk'),
+            'harga' => $this->request->getVar('harga'),
+            'stok' => $this->request->getVar('stok'),
+            'id_kategori' => $this->request->getVar('id_kategori')
         ]);
-
-        return redirect()->to('/admin/produk')
-                         ->with('pesan', 'Data produk berhasil diubah.');
+        return redirect()->to('admin/produk')->with('pesan', 'Data produk berhasil diubah.');
     }
 
     // ===============================

@@ -8,7 +8,7 @@ class ProdukModel extends Model
 {
     protected $table = 'produk';
     protected $primaryKey = 'id_produk';
-    protected $allowedFields = ['id_kategori', 'nama_produk', 'harga', 'stok'];
+    protected $allowedFields = ['id_kategori', 'nama_produk', 'harga', 'stok', 'gambar'];
 
     // Fungsi untuk mengambil data produk beserta nama kategorinya
     public function getProdukWithKategori($id = false)

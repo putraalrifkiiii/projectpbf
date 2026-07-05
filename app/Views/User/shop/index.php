@@ -307,7 +307,7 @@ body {
             <div class="card h-100">
 
                 <img src="<?= !empty($p['gambar'])
-                        ? base_url('uploads/produk/' . $p['gambar'])
+                        ? base_url('uploads/' . $p['gambar'])
                         : base_url('assets/images/image.png') ?>" class="card-img-top"
                     alt="<?= esc($p['nama_produk']) ?>">
 

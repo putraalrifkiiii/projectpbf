@@ -37,9 +37,9 @@ class Produk extends BaseController
     public function create()
     {
         $data = [
-            'title'     => 'Tambah Produk',
-            'kategori'  => $this->kategoriModel->findAll(),
-            'validation'=> \Config\Services::validation()
+            'title'      => 'Tambah Produk',
+            'kategori'   => $this->kategoriModel->findAll(),
+            'validation' => \Config\Services::validation()
         ];
 
         return view('Admin/produk/create', $data);
@@ -50,13 +50,25 @@ class Produk extends BaseController
     // ===============================
     public function store()
     {
+        $gambar = $this->request->getFile('gambar');
+
+        $namaGambar = 'default.png';
+
+        if ($gambar && $gambar->isValid() && !$gambar->hasMoved()) {
+            $namaGambar = $gambar->getRandomName();
+            $gambar->move(FCPATH . 'uploads/produk', $namaGambar);
+        }
+
         $this->produkModel->save([
-            'nama_produk' => $this->request->getVar('nama_produk'),
-            'harga' => $this->request->getVar('harga'),
-            'stok' => $this->request->getVar('stok'),
-            'id_kategori' => $this->request->getVar('id_kategori')
+            'nama_produk' => $this->request->getPost('nama_produk'),
+            'harga'       => $this->request->getPost('harga'),
+            'stok'        => $this->request->getPost('stok'),
+            'id_kategori' => $this->request->getPost('id_kategori'),
+            'gambar'      => $namaGambar
         ]);
-        return redirect()->to('admin/produk')->with('pesan', 'Data produk berhasil ditambahkan.');
+
+        return redirect()->to('/admin/produk')
+            ->with('pesan', 'Produk berhasil ditambahkan.');
     }
 
     // ===============================
@@ -74,17 +86,46 @@ class Produk extends BaseController
         return view('Admin/produk/edit', $data);
     }
 
-    // [UPDATE] Proses ubah data
+    // ===============================
+    // Update Produk
+    // ===============================
     public function update($id_produk)
     {
+        $produk = $this->produkModel->find($id_produk);
+
+        $gambar = $this->request->getFile('gambar');
+
+        if ($gambar && $gambar->isValid() && !$gambar->hasMoved()) {
+
+            $namaGambar = $gambar->getRandomName();
+
+            $gambar->move(FCPATH . 'uploads/produk', $namaGambar);
+
+            if (
+                !empty($produk['gambar']) &&
+                $produk['gambar'] != 'default.png' &&
+                file_exists(FCPATH . 'uploads/produk/' . $produk['gambar'])
+            ) {
+                unlink(FCPATH . 'uploads/produk/' . $produk['gambar']);
+            }
+
+        } else {
+
+            $namaGambar = $produk['gambar'];
+
+        }
+
         $this->produkModel->save([
-            'id_produk' => $id_produk,
-            'nama_produk' => $this->request->getVar('nama_produk'),
-            'harga' => $this->request->getVar('harga'),
-            'stok' => $this->request->getVar('stok'),
-            'id_kategori' => $this->request->getVar('id_kategori')
+            'id_produk'   => $id_produk,
+            'nama_produk' => $this->request->getPost('nama_produk'),
+            'harga'       => $this->request->getPost('harga'),
+            'stok'        => $this->request->getPost('stok'),
+            'id_kategori' => $this->request->getPost('id_kategori'),
+            'gambar'      => $namaGambar
         ]);
-        return redirect()->to('admin/produk')->with('pesan', 'Data produk berhasil diubah.');
+
+        return redirect()->to('/admin/produk')
+            ->with('pesan', 'Produk berhasil diperbarui.');
     }
 
     // ===============================
@@ -92,9 +133,19 @@ class Produk extends BaseController
     // ===============================
     public function delete($id_produk)
     {
+        $produk = $this->produkModel->find($id_produk);
+
+        if (
+            !empty($produk['gambar']) &&
+            $produk['gambar'] != 'default.png' &&
+            file_exists(FCPATH . 'uploads/produk/' . $produk['gambar'])
+        ) {
+            unlink(FCPATH . 'uploads/produk/' . $produk['gambar']);
+        }
+
         $this->produkModel->delete($id_produk);
 
         return redirect()->to('/admin/produk')
-                         ->with('pesan', 'Data produk berhasil dihapus.');
+            ->with('pesan', 'Produk berhasil dihapus.');
     }
 }

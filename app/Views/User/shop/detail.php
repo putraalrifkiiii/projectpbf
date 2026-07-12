@@ -233,7 +233,7 @@ hr {
 
             <div class="col-lg-5 d-flex align-items-center justify-content-center product-image-section p-5">
 
-                <img src="<?= base_url('uploads/produk/' . $produk['gambar']) ?>" class="img-fluid"
+                <img src="<?= base_url('uploads/' . $produk['gambar']) ?>" class="img-fluid"
                     alt="<?= esc($produk['nama_produk']) ?>" style="max-height:450px; object-fit:contain;">
 
             </div>

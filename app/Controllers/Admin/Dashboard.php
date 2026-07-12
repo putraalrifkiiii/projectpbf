@@ -44,4 +44,19 @@ class Dashboard extends BaseController
 
         return view('admin/dashboard/index', $data);
     }
+
+    public function logout()
+{
+    // 1. Ambil session aktif saat ini
+    $session = session();
+
+    // 2. Hapus semua data session login (User ID, Username, Logged In status)
+    $session->remove(['logged_in', 'user_id']);
+    
+    // 3. Hancurkan session secara total dari server
+    $session->destroy();
+
+    // 4. Paksa tendang ke halaman login dengan aman
+    return redirect()->to(base_url('login'))->with('message', 'Anda telah berhasil keluar sistem.');
+}
 }

@@ -32,6 +32,8 @@ $routes->group('', ['filter' => 'login'], function ($routes) {
     $routes->get('cart/success/(:num)', 'User\Cart::success/$1');
 
     $routes->get('riwayat', 'User\Shop::riwayat');
+    $routes->get('user/transaksi/invoice/(:num)', 'User\Shop::invoice/$1');
+
     $routes->get('profil', 'User\Profile::index');
     $routes->post('profil/update', 'User\Profile::update');
 });
@@ -39,11 +41,11 @@ $routes->group('', ['filter' => 'login'], function ($routes) {
 // ====================================================================
 // RUTE BACKEND (ADMIN) - namespace App\Controllers\Admin
 // ====================================================================
-
 $routes->group('admin', ['filter' => 'role:admin', 'namespace' => 'App\Controllers\Admin'], function ($routes) {
 
-    // Dashboard
+    // Dashboard & Auth
     $routes->get('dashboard', 'Dashboard::index');
+    $routes->get('logout', 'Dashboard::logout'); // <-- INI YANG KURANG COK
 
     // Produk
     $routes->get('produk', 'Produk::index');
@@ -70,3 +72,6 @@ $routes->group('admin', ['filter' => 'role:admin', 'namespace' => 'App\Controlle
     $routes->post('transaksi/update/(:num)', 'Transaksi::update/$1');
     $routes->delete('transaksi/delete/(:num)', 'Transaksi::delete/$1');
 });
+
+// Rute logout untuk User Frontend
+$routes->get('/logout', '\Myth\Auth\Controllers\AuthController::logout');

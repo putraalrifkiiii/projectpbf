@@ -20,31 +20,27 @@ class Profile extends BaseController
     {
         // 1. Validasi input
         $rules = [
-            // Username harus unik, kecuali milik user yang sedang login
             'username' => 'required|min_length[3]|max_length[30]|is_unique[users.username,id,' . user_id() . ']',
-            'no_hp' => 'permit_empty|max_length[20]',
-            'alamat' => 'permit_empty'
+            'no_hp'    => 'permit_empty|max_length[20]',
+            'alamat'   => 'permit_empty'
         ];
 
         if (!$this->validate($rules)) {
-            // PERBAIKAN TAMBAHAN: Mengambil pesan error spesifik agar lebih informatif
             $errorMsg = implode('<br>', $this->validator->getErrors());
             return redirect()->back()->withInput()->with('error', 'Gagal update profil:<br>' . $errorMsg);
         }
 
-        // 2. Siapkan data yang akan diupdate
-        $dataUpdate = [
-            'username' => $this->request->getPost('username'),
-            'no_hp' => $this->request->getPost('no_hp'),
-            'alamat' => $this->request->getPost('alamat'),
-        ];
+        // 2. Ambil data dari Form
+        $username = $this->request->getPost('username');
+        $no_hp    = $this->request->getPost('no_hp');
+        $alamat   = $this->request->getPost('alamat');
+        $userId   = user_id();
 
-        // 3. Simpan ke tabel users menggunakan Query Builder
+        // 3. Simpan Menggunakan RAW SQL QUERY (Anti Siluman/Anti Nyasar)
         $db = \Config\Database::connect();
-        $builder = $db->table('users');
-        $builder->where('id', user_id());
-
-        if ($builder->update($dataUpdate)) {
+        $sql = "UPDATE users SET username = ?, no_hp = ?, alamat = ? WHERE id = ?";
+        
+        if ($db->query($sql, [$username, $no_hp, $alamat, $userId])) {
             return redirect()->to('/profil')->with('success', 'Profil Anda berhasil diperbarui!');
         } else {
             return redirect()->to('/profil')->with('error', 'Terjadi kesalahan saat menyimpan data.');

@@ -7,6 +7,7 @@ use App\Models\ProdukModel;
 use App\Models\TransaksiModel;
 use App\Models\PelangganModel;
 use App\Models\TransaksiDetailModel;
+use CodeIgniter\I18n\Time;
 
 class Cart extends BaseController
 {
@@ -150,15 +151,17 @@ class Cart extends BaseController
                 ];
             }
 
-            $this->transaksiModel->insert([
-                'user_id' => user_id(),
-                'id_pelanggan' => $idPelanggan,
-                'tanggal' => date('Y-m-d'),
-                'total' => $totalHarga,
-                'status' => 'Pending',
-                'tipe_transaksi' => 'Online',
-                'metode_pembayaran' => 'Midtrans',
-            ]);
+      
+
+$this->transaksiModel->insert([
+    'user_id' => user_id(),
+    'id_pelanggan' => $idPelanggan,
+    'tanggal' => Time::now()->toDateTimeString(),
+    'total' => $totalHarga,
+    'status' => 'Pending',
+    'tipe_transaksi' => 'Online',
+    'metode_pembayaran' => 'Midtrans',
+]);
 
             $transaksiId = $this->transaksiModel->insertID();
 
@@ -173,7 +176,8 @@ class Cart extends BaseController
                 ]);
             }
 
-            $orderId = 'TRX-' . $transaksiId;
+         
+$orderId = 'TRX-' . $transaksiId . '-' . time();
 
             $params = [
                 'transaction_details' => [
@@ -285,7 +289,10 @@ class Cart extends BaseController
             $fraudStatus = $notif->fraud_status;
             $orderId = $notif->order_id;
 
-            $transaksiId = str_replace('TRX-', '', $orderId);
+            // Pecah string "TRX-5-1718293845" berdasarkan tanda strip (-)
+$pecahId = explode('-', $orderId);
+// Ambil array index ke-1 (yaitu angka 5, yang merupakan ID asli di database lu)
+$transaksiId = $pecahId[1];
 
             $transaksi = $this->transaksiModel->find($transaksiId);
 

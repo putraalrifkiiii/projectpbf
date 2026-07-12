@@ -141,9 +141,9 @@
 
     <footer class="text-white text-center py-4 mt-5">
         <div class="container">
-            <p class="mb-0 text-muted">
-                &copy; <?= date('Y') ?> <span class="text-white fw-bold">TECH<span
-                        class="text-accent">STORE</span></span>. All rights reserved.
+            <p class="mb-0 text-white">
+                &copy; <?= date('Y') ?> <span class="text-white fw-bold">TECH<span class="text-accent">STORE</span> All
+                    rights reserved.</span>
             </p>
         </div>
     </footer>

@@ -583,28 +583,52 @@ if ($status == 'selesai' || $status == 'sukses') :
                                     <h6 class="invoice-title mb-3">Detail Klien / Pembeli</h6>
                                     <table class="table info-table table-borderless table-sm mb-0">
                                         <tr>
-                                            <th style="width: 170px;"><i class="fa-solid fa-user text-muted me-2"></i>
-                                                Nama Klien</th>
+                                            <th style="width: 170px;">
+                                                <i class="fa-solid fa-user text-muted me-2"></i>
+                                                Nama Klien
+                                            </th>
                                             <td>
                                                 <span class="text-primary fw-bold">
-                                                    <?= esc($transaksi['nama_pelanggan_master'] ?? $transaksi['nama_pelanggan'] ?? '-'); ?>
+                                                    <?= esc($transaksi['nama_user'] ?? '-'); ?>
                                                 </span>
                                             </td>
                                         </tr>
+
                                         <tr>
-                                            <th><i class="fa-solid fa-phone text-muted me-2"></i> No. HP/Kontak</th>
-                                            <td><?= esc($transaksi['no_hp'] ?? '-'); ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th><i class="fa-solid fa-location-dot text-muted me-2"></i> Alamat
-                                                Pengiriman</th>
-                                            <td><?= esc($transaksi['alamat'] ?? '-'); ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th><i class="fa-solid fa-truck-fast text-muted me-2"></i> Tipe Transaksi
+                                            <th>
+                                                <i class="fa-solid fa-phone text-muted me-2"></i>
+                                                No. HP/Kontak
                                             </th>
-                                            <td><?= esc($transaksi['tipe_transaksi'] ?? '-'); ?></td>
+                                            <td>
+                                                <?= esc($transaksi['no_hp_user'] ?? '-'); ?>
+                                            </td>
                                         </tr>
+
+                                        <tr>
+                                            <th>
+                                                <i class="fa-solid fa-location-dot text-muted me-2"></i>
+                                                Alamat Pengiriman
+                                            </th>
+                                            <td>
+                                                <?= esc($transaksi['alamat_user'] ?? '-'); ?>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>
+                                                <i class="fa-solid fa-truck-fast text-muted me-2"></i>
+                                                Tipe Transaksi
+                                            </th>
+                                            <td>
+                                                <?= esc($transaksi['tipe_transaksi'] ?? '-'); ?>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </span>
+                                    </td>
+                                    </tr>
+
+
                                     </table>
                                 </div>
                             </div>

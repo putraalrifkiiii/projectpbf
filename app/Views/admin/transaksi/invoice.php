@@ -258,14 +258,24 @@
         <div class="info-section">
             <!-- Penagihan / Pelanggan -->
             <div class="info-box">
-                <h6><i class="fa-solid fa-user-tag me-1"></i> Tagihan Kepada:</h6>
+                <h6>
+                    <i class="fa-solid fa-user-tag me-1"></i>
+                    Tagihan Kepada:
+                </h6>
+
                 <p class="fw-bold text-primary" style="font-size: 1.05rem;">
-                    <?= esc($transaksi['nama_pelanggan_master'] ?? $transaksi['nama_pelanggan'] ?? '-'); ?>
+                    <?= esc($transaksi['nama_user'] ?? $transaksi['nama_pelanggan_master'] ?? '-'); ?>
                 </p>
-                <p class="text-muted"><i class="fa-solid fa-phone fa-xs me-1"></i>
-                    <?= esc($transaksi['no_hp'] ?? '-'); ?></p>
-                <p class="text-muted mb-0"><i class="fa-solid fa-location-dot fa-xs me-1"></i>
-                    <?= esc($transaksi['alamat'] ?? '-'); ?></p>
+
+                <p class="text-muted">
+                    <i class="fa-solid fa-phone fa-xs me-1"></i>
+                    <?= esc($transaksi['no_hp_user'] ?? $transaksi['no_hp'] ?? '-'); ?>
+                </p>
+
+                <p class="text-muted mb-0">
+                    <i class="fa-solid fa-location-dot fa-xs me-1"></i>
+                    <?= esc($transaksi['alamat_user'] ?? $transaksi['alamat'] ?? '-'); ?>
+                </p>
             </div>
 
             <!-- Detail Pembayaran -->

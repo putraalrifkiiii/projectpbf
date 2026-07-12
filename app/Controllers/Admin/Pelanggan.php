@@ -67,11 +67,36 @@ class Pelanggan extends BaseController
             ->with('pesan', 'Data pelanggan berhasil diperbarui.');
     }
 
-    public function delete($id)
-    {
-        $this->pelangganModel->delete($id);
+  public function delete($id)
+{
+    // Cek apakah pelanggan masih memiliki transaksi
+    $transaksiModel = new \App\Models\TransaksiModel();
 
-        return redirect()->to(base_url('admin/pelanggan'))
-            ->with('pesan', 'Data pelanggan berhasil dihapus.');
+    $jumlahTransaksi = $transaksiModel
+        ->where('id_pelanggan', $id)
+        ->countAllResults();
+
+    if ($jumlahTransaksi > 0) {
+        return redirect()
+            ->to(base_url('admin/pelanggan'))
+            ->with(
+                'error',
+                'Data pelanggan tidak dapat dihapus karena masih memiliki riwayat transaksi.'
+            );
     }
+
+    $pelanggan = $this->pelangganModel->find($id);
+
+    if (!$pelanggan) {
+        return redirect()
+            ->to(base_url('admin/pelanggan'))
+            ->with('error', 'Data pelanggan tidak ditemukan.');
+    }
+
+    $this->pelangganModel->delete($id);
+
+    return redirect()
+        ->to(base_url('admin/pelanggan'))
+        ->with('pesan', 'Data pelanggan berhasil dihapus.');
+}
 }

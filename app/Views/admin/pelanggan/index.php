@@ -489,8 +489,23 @@
                 <div class="alert alert-success alert-dismissible fade show mb-4 shadow-sm border-0" role="alert"
                     style="background-color: #d1e7dd; color: #0f5132;">
                     <i class="fa-solid fa-circle-check me-2"></i>
-                    <strong>Berhasil!</strong> <?= session()->getFlashdata('pesan'); ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>Berhasil!</strong>
+                    <?= esc(session()->getFlashdata('pesan')); ?>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    </button>
+                </div>
+                <?php endif; ?>
+
+                <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show mb-4 shadow-sm border-0" role="alert"
+                    style="background-color: #f8d7da; color: #842029;">
+                    <i class="fa-solid fa-circle-exclamation me-2"></i>
+                    <strong>Gagal!</strong>
+                    <?= esc(session()->getFlashdata('error')); ?>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    </button>
                 </div>
                 <?php endif; ?>
 

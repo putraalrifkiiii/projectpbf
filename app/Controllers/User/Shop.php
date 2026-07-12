@@ -1,70 +1,103 @@
 <?php
 
-// 1. UPDATE NAMESPACE: Sesuaikan dengan letak folder baru
-
 namespace App\Controllers\User;
 
-// 2. IMPORT BASECONTROLLER: Wajib ditambahkan karena BaseController ada di luar folder 'user'
 use App\Controllers\BaseController;
 use App\Models\ProdukModel;
 use App\Models\TransaksiModel;
+use Throwable;
 
 class Shop extends BaseController
 {
-    protected $produkModel;
-    protected $transaksiModel;
+    protected ProdukModel $produkModel;
+    
 
     public function __construct()
     {
         $this->produkModel = new ProdukModel();
-        $this->transaksiModel = new TransaksiModel();
     }
 
-    // Menampilkan daftar produk
     public function index()
     {
-        $data = [
+        return view('user/shop/index', [
             'title' => 'Katalog Produk',
-            // Memanggil method kustom Anda agar 'nama_kategori' ikut terambil
-            'produk' => $this->produkModel->getProdukWithKategori()
-        ];
-
-        // 3. UPDATE PATH VIEW: Sesuaikan dengan folder baru
-        return view('user/shop/index', $data);
+            'produk' => $this->produkModel->getProdukWithKategori(),
+        ]);
     }
 
-    // Menampilkan detail produk
-    public function detail($id_produk)
+    public function detail($idProduk)
     {
-        $data = [
-            'title' => 'Detail Produk',
-            // Memanggil method kustom Anda dengan parameter ID
-            'produk' => $this->produkModel->getProdukWithKategori($id_produk)
-        ];
+        $produk = $this->produkModel->getProdukWithKategori($idProduk);
 
-        // Proteksi: Jika produk tidak ditemukan di database, kembalikan ke halaman awal
-        // Ini mencegah error "trying to access array offset on value of type null" di View
-        if (empty($data['produk'])) {
-            return redirect()->to('/')->with('error', 'Data produk tidak ditemukan!');
+        if (empty($produk)) {
+            return redirect()
+                ->to('/')
+                ->with('error', 'Data produk tidak ditemukan!');
         }
 
-        // 3. UPDATE PATH VIEW
-        return view('user/shop/detail', $data);
+        return view('user/shop/detail', [
+            'title' => 'Detail Produk',
+            'produk' => $produk,
+        ]);
     }
 
-    // Melihat riwayat pesanan user
     public function riwayat()
     {
-        // Menggunakan fungsi bawaan Myth\Auth untuk mengambil ID user yang login
         $userId = user_id();
 
-        $data = [
-            'title' => 'Riwayat Transaksi',
-            // Perhatikan: 'id_user' sudah diubah menjadi 'user_id'
-            'transaksi' => $this->transaksiModel->where('user_id', $userId)->findAll()
-        ];
+        if (empty($userId)) {
+            return redirect()
+                ->to('/login')
+                ->with('error', 'Silakan login terlebih dahulu.');
+        }
 
-        // 3. UPDATE PATH VIEW
-        return view('user/shop/history', $data);
+        try {
+            $transaksiModel = new TransaksiModel();
+
+            return view('user/shop/history', [
+                'title' => 'Riwayat Transaksi',
+                'transaksi' => $transaksiModel
+                    ->getRiwayatByUser((int) $userId),
+                'errorDb' => null,
+            ]);
+        } catch (Throwable $e) {
+            log_message(
+                'error',
+                'Riwayat transaksi gagal untuk user ' .
+                $userId . ': ' . $e->getMessage()
+            );
+
+            return view('user/shop/history', [
+                'title' => 'Riwayat Transaksi',
+                'transaksi' => [],
+                'errorDb' => 'Riwayat transaksi gagal dimuat. Periksa koneksi MySQL.',
+            ]);
+        }
     }
+
+ public function invoice($id)
+{
+    $transaksiModel = new TransaksiModel();
+
+    $transaksi = $transaksiModel->getDetailTransaksi($id);
+
+    if (
+        !$transaksi
+        || (int) $transaksi['user_id'] !== (int) user_id()
+    ) {
+        return redirect()
+            ->to(base_url('riwayat'))
+            ->with('error', 'Invoice tidak ditemukan atau bukan milik Anda.');
+    }
+
+    $items = $transaksiModel->getItemTransaksi($id);
+
+    return view('Admin/transaksi/invoice', [
+        'title' => 'Invoice',
+        'transaksi' => $transaksi,
+        'items' => $items,
+    ]);
+}
+
+    
 }
